@@ -1,3 +1,4 @@
+//this is the server file//
 const express = require('express');
 const bodyParser = require('body-parser');
 
@@ -12,8 +13,8 @@ app.use(
 );
 app.use(bodyParser.json());
 
-app.get('/', (req, res) => {
-	res.send('Hello!');
+app.get('/api/hello', (req, res) => {
+	res.send({ express: 'Hello From Express' });
 });
 
 app.listen(PORT, () => console.log(`Server up and running on port ${PORT}`));
