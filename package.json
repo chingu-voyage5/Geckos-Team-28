@@ -29,6 +29,7 @@
 		"validator": "^10.2.0"
 	},
 	"devDependencies": {
+		"eslint-plugin-react": "^7.8.2",
 		"husky": "^0.14.3",
 		"lint-staged": "^7.1.2",
 		"nodemon": "^1.17.5"
