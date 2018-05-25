@@ -4,8 +4,8 @@ const isEmpty = require('./isEmpty');
 module.exports = function validateRegisterInput(data) {
 	let errors = {};
 
-	data.fullName = !isEmpty(data.name) ? data.name : '';
-	data.username = !isEmpty(data.name) ? data.name : '';
+	data.fullName = !isEmpty(data.fullName) ? data.fullName : '';
+	data.username = !isEmpty(data.username) ? data.username : '';
 	data.email = !isEmpty(data.email) ? data.email : '';
 	data.password = !isEmpty(data.password) ? data.password : '';
 	data.password2 = !isEmpty(data.password2) ? data.password2 : '';
@@ -14,14 +14,14 @@ module.exports = function validateRegisterInput(data) {
 		errors.fullName = 'Full Name must be between 2 and 30 characters!';
 	}
 	if (Validator.isEmpty(data.fullName)) {
-		errors.fullName = 'Name field is required!';
+		errors.fullName = 'Full Name field is required!';
 	}
 
 	if (!Validator.isLength(data.username, { min: 2, max: 30 })) {
 		errors.username = 'Username must be between 2 and 30 characters!';
 	}
 	if (Validator.isEmpty(data.username)) {
-		errors.name = 'Name field is required!';
+		errors.name = 'Username field is required!';
 	}
 
 	if (!Validator.isEmail(data.email)) {
