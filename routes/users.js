@@ -11,17 +11,13 @@ const router = express.Router();
  * @desc    Registers User
  * @access  Public
  */
-router.post('/register', (req, res) => {
-	res.json({ page: 'Register Page' });
-});
+router.post('/register', (req, res) => {});
 
 /**
  * @route   POST api/users/login
  * @desc    Login User / Returning JWT token
  * @access  Public
  */
-router.post('/login', (req, res) => {
-	res.json({ page: 'Login Page' });
-});
+router.post('/login', (req, res) => {});
 
 module.exports = router;
