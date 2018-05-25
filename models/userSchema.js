@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 const userSchema = new Schema({
 	fullName: {
 		type: String,
-		required: true,
+		required: 'Full Name is required',
 		trim: true,
 	},
 	username: {
@@ -18,8 +18,7 @@ const userSchema = new Schema({
 		lowercase: true,
 		trim: true,
 		unique: true,
-		// validate: [validator.isEmail, 'Invalid Email Address'],
-		required: 'Please add your email address',
+		required: true,
 	},
 	password: {
 		type: String,

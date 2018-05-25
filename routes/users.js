@@ -3,6 +3,10 @@ const express = require('express');
 const User = require('../models/userSchema');
 const config = require('../config/main');
 
+/*********  Validation handlers  **********/
+const validateLogin = require('../validation/validateLogin');
+const validateRegister = require('../validation/validateRegister');
+
 // instance of the Router
 const router = express.Router();
 
