@@ -11,7 +11,10 @@
 		"precommit": "lint-staged"
 	},
 	"lint-staged": {
-		"*.{js,json,css,md}": ["prettier --config .prettierrc.json --write", "git add"]
+		"*.{js,json,css,md}": [
+			"prettier --config .prettierrc.json --write",
+			"git add"
+		]
 	},
 	"keywords": [],
 	"author": "",
