@@ -15,12 +15,14 @@ surname: {
 username: {
 	type: String,
 	required: true,
-	trim: true
+	trim: true,
+	unique,true
 },
 email: {
 	type: String,
 	lowercase: true,
 	trim: true,
+	unique,true,
 	validate: [validator.isEmail, 'Invalid Email Address'],
 	required: 'Please add your email address'
 },
