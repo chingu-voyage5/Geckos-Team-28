@@ -11,10 +11,7 @@
 		"precommit": "lint-staged"
 	},
 	"lint-staged": {
-		"*.{js,json,css,md}": [
-			"prettier --config .prettierrc.json --write",
-			"git add"
-		]
+		"*.{js,json,css,md}": ["prettier --config .prettierrc.json --write", "git add"]
 	},
 	"keywords": [],
 	"author": "",
@@ -32,6 +29,8 @@
 		"validator": "^10.2.0"
 	},
 	"devDependencies": {
+		"babel-eslint": "^8.2.3",
+		"eslint": "^4.19.1",
 		"eslint-plugin-react": "^7.8.2",
 		"husky": "^0.14.3",
 		"lint-staged": "^7.1.2",
