@@ -2,6 +2,7 @@ const Validator = require('validator');
 const isEmpty = require('./isEmpty');
 
 module.exports = function validateRegisterInput(data) {
+	console.log(data);
 	let errors = {};
 
 	data.fullName = !isEmpty(data.fullName) ? data.fullName : '';
@@ -31,7 +32,7 @@ module.exports = function validateRegisterInput(data) {
 		errors.email = 'Email field is required!';
 	}
 
-	if (!Validator.isLength(data.password, { min: 8, max: 32 })) {
+	if (Validator.isLength(data.password, { min: 8, max: 32 })) {
 		errors.password = 'Password must be between 8 and 32 characters!';
 	}
 	if (Validator.isEmpty(data.password)) {
