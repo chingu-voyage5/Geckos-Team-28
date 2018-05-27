@@ -1,10 +1,11 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
+// Schema defines how the user's data will be stored in MongoDB
 const userSchema = new Schema({
 	fullName: {
 		type: String,
-		required: 'Full Name is required',
+		required: true,
 		trim: true,
 	},
 	username: {
