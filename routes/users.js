@@ -4,7 +4,6 @@ const User = require('../models/userSchema');
 const config = require('../config/main');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
-const passport = require('passport');
 
 /*********  Validation handlers  **********/
 const validateLogin = require('../validation/validateLogin');
@@ -62,7 +61,7 @@ router.post('/register', (req, res) => {
 					newUser
 						.save()
 						.then(savedUser => res.json(savedUser))
-						.catch(console.log);
+						.catch(err => res.json({ msg: 'bcrypt error', err }));
 				});
 			});
 		})
@@ -123,13 +122,6 @@ router.post('/login', (req, res) => {
 			});
 		})
 		.catch(err => res.status(400).json(err));
-});
-
-// Logout route
-
-router.get('/logout', function(req, res) {
-	req.logout();
-	res.send({ success: false, message: 'There was an error with the logout' });
 });
 
 module.exports = router;
