@@ -33,7 +33,7 @@ describe('API /api/users/login', () => {
 	it('Wrong credentials for invalid password', function(done) {
 		request
 			.post('/api/users/login')
-			.send({ password: '1234567', email: 'ptlink@abv.bg' })
+			.send({ password: '1234567', email: 'unit@testing.com' })
 			.end(function(err, res) {
 				if (err) throw err;
 				expect(res.body).to.have.property('password');
@@ -46,7 +46,7 @@ describe('API /api/users/login', () => {
 	it('User not found for invalid username', function(done) {
 		request
 			.post('/api/users/login')
-			.send({ password: '12345678', email: 'ptlinks@abv.bg' })
+			.send({ password: '12345678', email: 'unittesting@abv.bg' })
 			.end(function(err, res) {
 				if (err) throw err;
 				expect(res.body.email).to.equal('User not found');
@@ -58,7 +58,7 @@ describe('API /api/users/login', () => {
 	it('Successful login', function(done) {
 		request
 			.post('/api/users/login')
-			.send({ password: '12345678', email: 'ptlink@abv.bg' })
+			.send({ password: '12345678', email: 'unit@testing.com' })
 			.end(function(err, res) {
 				if (err) throw err;
 				expect(res.body.success).to.equal(true);
@@ -70,7 +70,7 @@ describe('API /api/users/login', () => {
 	it('Successful login should return a token', function(done) {
 		request
 			.post('/api/users/login')
-			.send({ password: '12345678', email: 'ptlink@abv.bg' })
+			.send({ password: '12345678', email: 'unit@testing.com' })
 			.end(function(err, res) {
 				if (err) throw err;
 				expect(res.body.token).to.be.a('string');
