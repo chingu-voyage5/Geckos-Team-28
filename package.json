@@ -33,10 +33,15 @@
 	},
 	"devDependencies": {
 		"babel-eslint": "^8.2.3",
+		"chai": "^4.1.2",
+		"chai-http": "^4.0.0",
 		"eslint": "^4.19.1",
 		"eslint-plugin-react": "^7.8.2",
 		"husky": "^0.14.3",
 		"lint-staged": "^7.1.2",
-		"nodemon": "^1.17.5"
+		"mocha": "^5.2.0",
+		"nodemon": "^1.17.5",
+		"superagent": "^3.8.3",
+		"supertest": "^3.1.0"
 	}
 }
