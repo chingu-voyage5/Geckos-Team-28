@@ -4,14 +4,18 @@
 	"description": "",
 	"main": "server.js",
 	"scripts": {
-		"test": "echo \"Error: no test specified\" && exit 1",
+		"test": "mocha test/**/*.test.js --reporter spec --exit",
+		"test:watch": "mocha test/**/*.test.js --reporter spec",
 		"server": "nodemon server.js",
 		"client": "npm run start --prefix client",
 		"dev": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\"",
-		"precommit": "lint-staged"
+		"precommit": "npm run test && lint-staged"
 	},
 	"lint-staged": {
-		"*.{js,json,css,md}": ["prettier --config .prettierrc.json --write", "git add"]
+		"*.{js,json,css,md}": [
+			"prettier --config .prettierrc.json --write",
+			"git add"
+		]
 	},
 	"keywords": [],
 	"author": "",
