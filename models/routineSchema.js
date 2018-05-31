@@ -3,138 +3,45 @@ const Schema = mongoose.Schema;
 
 // Schema defines how the user's data will be stored in MongoDB
 const routineSchema = new Schema({
-	silence: {
-		activityId: {
-			type: boolean,
-			require:true,
-			unique:true
-		},
-		activityName: {
-			type: String,
-			required:true,
-			trim:true
-		},
-		startTime: {
-			type: Date,
-			required:true,
-			default:Date.now
-		},
-		endTime: {
-			type: Date,
-			required:true,
-			default:Date.now
-		}
+	user: {
+		type: Schema.Types.ObjectId,
+		ref: 'user',
 	},
-	affirmation: {
-		activityId: {
-			type: boolean,
-			require:true,
-			unique:true
-		},
-		activityName: {
-			type: String,
-			required:true,
-			trim:true
-		},
-		startTime: {
-			type: Date,
-			required:true,
-			default:Date.now
-		},
-		endTime: {
-			type: Date,
-			required:true,
-			default:Date.now
-		}
+	blockName: {
+		type: String,  // for example - SILENCE
+		required: true, // name should be required and description should be optional
+		trim: true,
 	},
-	visualization: {
-		activityId: {
-			type: boolean,
-			require:true,
-			unique:true
-		},
-		activityName: {
-			type: String,
-			required:true,
-			trim:true
-		},
-		startTime: {
-			type: Date,
-			required:true,
-			default:Date.now
-		},
-		endTime: {
-			type: Date,
-			required:true,
-			default:Date.now
-		}
+	description: { // for example - Be quiet in your mind and focus on your breathing
+		type: String,
+		trim: true,
 	},
-	exercise: {
-		activityId: {
-			type: boolean,
-			require:true,
-			unique:true
-		},
-		activityName: {
-			type: String,
-			required:true,
-			trim:true
-		},
-		startTime: {
-			type: Date,
-			required:true,
-			default:Date.now,
-		},
-		endTime: {
-			type: Date,
-			required:true,
-			default:Date.now
-		}
+	date: {
+		type: Date,
+		default: Date.now,
 	},
-	reading: {
-		activityId: {
-			type: boolean,
-			require:true,
-			unique:true
-		},
-		activityName: {
-			type: String,
-			required:true,
-			trim:true,
-		},
-		startTime: {
-			type: Date,
-			required:true,
-			default:Date.now,
-		},
-		endTime: {
-			type: Date,
-			required:true,
-			default:Date.now,
+	activities: [ // this is the single activity
+		{
+			name: { // for example Meditation, affirmation and etc
+				type: String,
+				required: true,
+				trim: true,
+			},
+			user: {
+				type: Schema.Types.ObjectId,
+				ref: 'user',
+			},
+			startTime: {
+				type: Date,
+				required: true, // start time is required but end time is optional
+				default: Date.now
+			},
+			endTime: {
+				type: Date,
+				default: Date.now
+			}
 		}
-	},
-	scibling: {
-		activityId: {
-			type: boolean,
-			require:true,
-			unique:true
-		},
-		activityName: {
-			type: String,
-			required:true,
-			trim:true,
-		},
-		startTime: {
-			type: Date,
-			required:true,
-			default:Date.now,
-		},
-		endTime: {
-			type: Date,
-			required:true,
-			default:Date.now,
-		}
-	}
+	]	
 });
 
 const routinerModel = mongoose.model('user', routineSchema);
