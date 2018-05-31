@@ -2,10 +2,11 @@ const express = require('express');
 const passport = require('passport');
 
 const router = express.Router();
-const Routine = require('../../models/routineSchema');
-const User = require('../../models/userSchema');
+const Routine = require('../models/routineSchema');
+const User = require('../models/userSchema');
 
 const validateRoutine = require('../validation/validateRoutine');
+const validateActivity = require('../validation/validateActivity');
 
 /**
  * @route   GET api/routines
@@ -40,6 +41,8 @@ router.post('/', passport.authenticate('jwt', { session: false }), (req, res) =>
 	const { id } = req.user;
 	const newRoutine = new Routine({
 		user: id,
+		blockName: req.body.blockName,
+		description: req.body.description,
 	});
 	// Check if input is valid
 	if (!isValid) return res.status(400).json(errors);
@@ -55,8 +58,11 @@ router.post('/', passport.authenticate('jwt', { session: false }), (req, res) =>
  * @desc    Delete routine by id
  * @access  Private
  */
-router.delete('/:routine_id', passport.authenticate('jwt', { session: false }), (req, res) =>
-	User.findOne({ user: req.user.id }).then(profile => {
+router.delete('/:routine_id', passport.authenticate('jwt', { session: false }), (req, res) => {
+	console.log('user: ', req.user.id);
+	console.log('routine: ', req.params.routine_id);
+
+	return User.findOne({ user: req.user.id }).then(profile => {
 		if (!profile) return res.status(404);
 
 		Routine.findById(req.params.routine_id)
@@ -72,8 +78,8 @@ router.delete('/:routine_id', passport.authenticate('jwt', { session: false }), 
 					.catch(err => res.status(404).json({ routineNotFound: 'Routine not found', devMsg: err }));
 			})
 			.catch(err => res.status(404).json({ routineNotFound: 'Routine not found', devMsg: err }));
-	})
-);
+	});
+});
 
 /**
  * @route   POST api/routines/activity/:routine_id
@@ -81,7 +87,7 @@ router.delete('/:routine_id', passport.authenticate('jwt', { session: false }), 
  * @access  Private
  */
 router.post('/activity/:routine_id', passport.authenticate('jwt', { session: false }), (req, res) => {
-	const { errors, isValid } = validateRoutine(req.body);
+	const { errors, isValid } = validateActivity(req.body);
 	// Check if input is valid
 	if (!isValid) return res.status(400).json(errors);
 
@@ -89,6 +95,9 @@ router.post('/activity/:routine_id', passport.authenticate('jwt', { session: fal
 		.then(routine => {
 			const newActivity = {
 				user: req.user.id,
+				name: req.body.name,
+				startTime: req.body.startTime,
+				endTime: req.body.endTime,
 			};
 
 			// Add to activities array
