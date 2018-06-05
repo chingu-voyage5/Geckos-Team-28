@@ -8,11 +8,12 @@ const routineSchema = new Schema({
 		ref: 'user',
 	},
 	blockName: {
-		type: String,  // for example - SILENCE
+		type: String, // for example - SILENCE
 		required: true, // name should be required and description should be optional
 		trim: true,
 	},
-	description: { // for example - Be quiet in your mind and focus on your breathing
+	description: {
+		// for example - Be quiet in your mind and focus on your breathing
 		type: String,
 		trim: true,
 	},
@@ -20,9 +21,11 @@ const routineSchema = new Schema({
 		type: Date,
 		default: Date.now,
 	},
-	activities: [ // this is the single activity
+	activities: [
 		{
-			name: { // for example Meditation, affirmation and etc
+			// this is the single activity
+			name: {
+				// for example Meditation, affirmation and etc
 				type: String,
 				required: true,
 				trim: true,
@@ -34,16 +37,16 @@ const routineSchema = new Schema({
 			startTime: {
 				type: Date,
 				required: true, // start time is required but end time is optional
-				default: Date.now
+				default: Date.now,
 			},
 			endTime: {
 				type: Date,
-				default: Date.now
-			}
-		}
-	]	
+				default: Date.now,
+			},
+		},
+	],
 });
 
-const routinerModel = mongoose.model('user', routineSchema);
+const routineModel = mongoose.model('routine', routineSchema);
 
 module.exports = routineModel;

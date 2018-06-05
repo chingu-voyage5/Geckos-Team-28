@@ -7,6 +7,7 @@ const passport = require('passport');
 
 const config = require('./config/main');
 const users = require('./routes/users');
+const routines = require('./routes/routines');
 
 const PORT = process.env.PORT || 5000;
 
@@ -40,6 +41,8 @@ require('./config/passport')(passport);
 /*********  Routes  **********/
 // Append user routes from user.js to /api/users
 app.use('/api/users/', users);
+
+app.use('/api/routines/', routines);
 
 // Test public route
 app.get('/api/hello', (req, res) => {
