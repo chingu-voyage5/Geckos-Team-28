@@ -6,14 +6,12 @@ import Yup from 'yup';
 // these are props passed from withFormik
 const Login = ({ values, errors, touched }) => (
 	<Form>
-		<div>
-			{touched.email && errors.email && <p>{errors.email}</p>}
-			<Field type="email" name="email" placeholder="Email" />
-		</div>
-		<div>
-			{touched.password && errors.password && <p>{errors.password}</p>}
-			<Field type="password" name="password" placeholder="Password" />
-		</div>
+		<div>{touched.email && errors.email && <p>{errors.email}</p>}</div>
+		<Field type="email" name="email" placeholder="Email" />
+
+		<div>{touched.password && errors.password && <p>{errors.password}</p>}</div>
+		<Field type="password" name="password" placeholder="Password" />
+
 		<button>Go</button>
 	</Form>
 );
