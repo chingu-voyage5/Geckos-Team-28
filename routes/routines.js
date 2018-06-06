@@ -13,6 +13,7 @@ const validateActivity = require('../validation/validateActivity');
  * @desc    Get routines
  * @access  Private
  */
+// TODO: Add User check to this
 router.get('/', passport.authenticate('jwt', { session: false }), (req, res) =>
 	Routine.find()
 		.sort({ date: -1 })
@@ -25,6 +26,7 @@ router.get('/', passport.authenticate('jwt', { session: false }), (req, res) =>
  * @desc    Get specific routine by id
  * @access  Private
  */
+// TODO: Add User check to this
 router.get('/:routine_id', passport.authenticate('jwt', { session: false }), (req, res) => {
 	Routine.findById(req.params.routine_id)
 		.then(routine => res.json(routine))
@@ -58,14 +60,11 @@ router.post('/', passport.authenticate('jwt', { session: false }), (req, res) =>
  * @desc    Delete routine by id
  * @access  Private
  */
-router.delete('/:routine_id', passport.authenticate('jwt', { session: false }), (req, res) => {
-	console.log('user: ', req.user.id);
-	console.log('routine: ', req.params.routine_id);
-
-	return User.findOne({ user: req.user.id }).then(profile => {
+router.delete('/:routine_id', passport.authenticate('jwt', { session: false }), (req, res) =>
+	User.findById(req.user.id).then(profile => {
 		if (!profile) return res.status(404);
 
-		Routine.findById(req.params.routine_id)
+		return Routine.findById(req.params.routine_id)
 			.then(routine => {
 				// Check for routine owner
 				if (routine.user.toString() !== req.user.id)
@@ -78,8 +77,8 @@ router.delete('/:routine_id', passport.authenticate('jwt', { session: false }), 
 					.catch(err => res.status(404).json({ routineNotFound: 'Routine not found', devMsg: err }));
 			})
 			.catch(err => res.status(404).json({ routineNotFound: 'Routine not found', devMsg: err }));
-	});
-});
+	})
+);
 
 /**
  * @route   POST api/routines/activity/:routine_id
