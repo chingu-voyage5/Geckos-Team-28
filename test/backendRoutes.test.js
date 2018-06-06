@@ -37,6 +37,7 @@ describe('API /api/users/login', () => {
 			.end(function(err, res) {
 				if (err) throw err;
 				expect(res.body).to.have.property('password');
+				console.log(res.body.password);
 				expect(res.body.password).to.equal('Wrong credentials');
 				expect(res).not.to.have.status(200);
 				done();
@@ -119,7 +120,7 @@ describe('API /api/users/register', () => {
 			})
 			.end(function(err, res) {
 				if (err) throw err;
-				expect(res.body).to.have.property('err');
+				expect(res.body.email).to.equal('Email is already in use');
 				done();
 			});
 	});
