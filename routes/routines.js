@@ -13,12 +13,17 @@ const validateActivity = require('../validation/validateActivity');
  * @desc    Get routines
  * @access  Private
  */
-// TODO: Add User check to this
 router.get('/', passport.authenticate('jwt', { session: false }), (req, res) =>
-	Routine.find()
-		.sort({ date: -1 })
-		.then(routines => res.json(routines))
-		.catch(err => res.status(404).json({ noRoutinesFound: 'No routines, or something bad happened :(', devMsg: err }))
+	User.findById(req.user.id).then(profile => {
+		if (!profile) return res.status(404);
+
+		return Routine.find({ user: req.user.id })
+			.sort({ date: -1 })
+			.then(routines => res.json(routines))
+			.catch(err =>
+				res.status(404).json({ noRoutinesFound: 'No routines, or something bad happened :(', devMsg: err })
+			);
+	})
 );
 
 /**
@@ -26,11 +31,14 @@ router.get('/', passport.authenticate('jwt', { session: false }), (req, res) =>
  * @desc    Get specific routine by id
  * @access  Private
  */
-// TODO: Add User check to this
 router.get('/:routine_id', passport.authenticate('jwt', { session: false }), (req, res) => {
-	Routine.findById(req.params.routine_id)
-		.then(routine => res.json(routine))
-		.catch(err => res.status(404).json({ noRoutineFound: "We couldn't find routine with that ID", devMsg: err }));
+	User.findById(req.user.id).then(profile => {
+		if (!profile) return res.status(404);
+
+		return Routine.find({ _id: req.params.routine_id, user: req.user.id })
+			.then(routine => res.json(routine))
+			.catch(err => res.status(404).json({ noRoutineFound: "We couldn't find routine with that ID", devMsg: err }));
+	});
 });
 
 /**
