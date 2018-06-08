@@ -112,7 +112,7 @@ describe('API /api/users/register', () => {
 		request
 			.post('/api/users/register')
 			.send({
-				email: 'asds@abv.bg',
+				email: 'asd@abv.bg',
 				fullName: 'testing',
 				password: '12345678',
 				password2: '12345678',
