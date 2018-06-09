@@ -45,7 +45,7 @@ const FormikLogin = withFormik({
 			})
 			.catch(error => {
 				if (error.response.status === 400) {
-					console.log(error);
+					console.log(error.response.data);
 				}
 			});
 
