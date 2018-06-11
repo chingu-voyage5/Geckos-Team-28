@@ -5,6 +5,7 @@ import './styles.css';
 const LoginPage = () => {
 	return (
 		<div id="container">
+			<h2>Login Page</h2>
 			<Login />
 		</div>
 	);

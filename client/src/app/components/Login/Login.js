@@ -2,6 +2,7 @@ import React from 'react';
 import './styles.css';
 import { withFormik, Form, Field } from 'formik';
 import Yup from 'yup';
+import axios from 'axios';
 
 // these are props passed from withFormik
 const Login = ({ values, errors, touched }) => (
@@ -12,7 +13,7 @@ const Login = ({ values, errors, touched }) => (
 		<div>{touched.password && errors.password && <p>{errors.password}</p>}</div>
 		<Field type="password" name="password" placeholder="Password" />
 
-		<button>Go</button>
+		<button>Login</button>
 	</Form>
 );
 
@@ -29,12 +30,25 @@ const FormikLogin = withFormik({
 			.email('Email not valid')
 			.required('Email is required'),
 		password: Yup.string()
-			.min(9, 'Password must be 9 characters or longer')
+			.min(8, 'Password must be 8 characters or longer')
 			.required('Password is required'),
 	}),
+
 	handleSubmit(values, { resetForm, setSubmitting }) {
-		console.log(values);
-		alert('Values outputed to Console');
+		const { email, password } = values;
+
+		axios
+			.post('/api/users/login', { email, password })
+			.then(result => {
+				localStorage.setItem('jwtToken', result.data.token);
+				console.log(result);
+			})
+			.catch(error => {
+				if (error.response.status === 400) {
+					console.log(error.response.data);
+				}
+			});
+
 		resetForm();
 		setSubmitting(false);
 	},
