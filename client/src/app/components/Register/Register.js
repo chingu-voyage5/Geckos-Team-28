@@ -61,7 +61,6 @@ const FormikRegister = withFormik({
 	handleSubmit(values, { resetForm, setSubmitting }) {
 		const { email, emailConfirm, password, passwordConfirm, fullName, username } = values;
 
-		console.log(password);
 		axios
 			.post('/api/users/register', { email, emailConfirm, password, passwordConfirm, fullName, username })
 			.then(result => {
