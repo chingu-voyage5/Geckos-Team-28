@@ -44,16 +44,6 @@ app.use('/api/users/', users);
 
 app.use('/api/routines/', routines);
 
-// Test public route
-app.get('/api/hello', (req, res) => {
-	res.send({ express: 'Hello From Express' });
-});
-
-// Test Protect dashboard route
-app.get('/dashboard', passport.authenticate('jwt', { session: false }), (req, res) => {
-	res.send(`It worked. Used id is ${req.user._id}, and your name is ${req.user.username}`);
-});
-
 app.listen(PORT, () => console.log(`Server up and running on port ${PORT}`));
 
 module.exports = app;

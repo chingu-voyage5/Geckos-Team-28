@@ -20,9 +20,7 @@ router.get('/', passport.authenticate('jwt', { session: false }), (req, res) =>
 		return Routine.find({ user: req.user.id })
 			.sort({ date: -1 })
 			.then(routines => res.json(routines))
-			.catch(err =>
-				res.status(404).json({ noRoutinesFound: 'No routines, or something bad happened :(', devMsg: err })
-			);
+			.catch(err => res.status(404).json({ message: 'No routines, or something bad happened :(', devMsg: err }));
 	})
 );
 
@@ -31,15 +29,15 @@ router.get('/', passport.authenticate('jwt', { session: false }), (req, res) =>
  * @desc    Get specific routine by id
  * @access  Private
  */
-router.get('/:routine_id', passport.authenticate('jwt', { session: false }), (req, res) => {
+router.get('/:routine_id', passport.authenticate('jwt', { session: false }), (req, res) =>
 	User.findById(req.user.id).then(profile => {
 		if (!profile) return res.status(404);
 
 		return Routine.find({ _id: req.params.routine_id, user: req.user.id })
 			.then(routine => res.json(routine))
-			.catch(err => res.status(404).json({ noRoutineFound: "We couldn't find routine with that ID", devMsg: err }));
-	});
-});
+			.catch(err => res.status(404).json({ message: "We couldn't find routine with that ID", devMsg: err }));
+	})
+);
 
 /**
  * @route   POST api/routines
@@ -70,21 +68,21 @@ router.post('/', passport.authenticate('jwt', { session: false }), (req, res) =>
  */
 router.delete('/:routine_id', passport.authenticate('jwt', { session: false }), (req, res) =>
 	User.findById(req.user.id).then(profile => {
-		if (!profile) return res.status(404);
+		if (!profile) return res.status(404).json({ message: 'Routine not found' });
 
 		return Routine.findById(req.params.routine_id)
 			.then(routine => {
 				// Check for routine owner
 				if (routine.user.toString() !== req.user.id)
-					return res.status(401).json({ notAuthorized: 'Not authorized to do that' });
+					return res.status(401).json({ message: 'Not authorized to do that' });
 
 				// Delete routine
 				routine
 					.remove()
-					.then(() => res.json({ success: 'Routine deleted' }))
-					.catch(err => res.status(404).json({ routineNotFound: 'Routine not found', devMsg: err }));
+					.then(() => res.json({ message: 'Routine deleted' }))
+					.catch(err => res.status(404).json({ message: 'Routine not found', devMsg: err }));
 			})
-			.catch(err => res.status(404).json({ routineNotFound: 'Routine not found', devMsg: err }));
+			.catch(err => res.status(404).json({ message: 'Routine not found', devMsg: err }));
 	})
 );
 
@@ -113,9 +111,9 @@ router.post('/activity/:routine_id', passport.authenticate('jwt', { session: fal
 			routine
 				.save()
 				.then(_routine => res.json(_routine))
-				.catch(err => res.status(404).json({ routineNotFound: 'Routine not found', devMsg: err }));
+				.catch(err => res.status(404).json({ message: 'Routine not found', devMsg: err }));
 		})
-		.catch(err => res.status(404).json({ routineNotFound: 'Routine not found', devMsg: err }));
+		.catch(err => res.status(404).json({ message: 'Routine not found', devMsg: err }));
 });
 
 /**
@@ -123,12 +121,12 @@ router.post('/activity/:routine_id', passport.authenticate('jwt', { session: fal
  * @desc   	Delete activity from routine
  * @access  Private
  */
-router.delete('/activity/:routine_id/:activity_id', passport.authenticate('jwt', { session: false }), (req, res) => {
+router.delete('/activity/:routine_id/:activity_id', passport.authenticate('jwt', { session: false }), (req, res) =>
 	Routine.findById(req.params.routine_id)
 		.then(routine => {
 			// Check if activity exists
 			if (routine.activities.filter(activity => activity._id.toString() === req.params.activity_id).length === 0) {
-				return res.status(404).json({ activityNotExists: "Can't find that activity" });
+				return res.status(404).json({ message: "Can't find that activity" });
 			}
 
 			// Remove activity from activities array
@@ -136,9 +134,9 @@ router.delete('/activity/:routine_id/:activity_id', passport.authenticate('jwt',
 			routine
 				.save()
 				.then(_routine => res.json(_routine))
-				.catch(err => res.json({ errHappened: 'Somethings wrong, please try again', devMsg: err }));
+				.catch(err => res.json({ message: 'Somethings wrong, please try again', devMsg: err }));
 		})
-		.catch(err => res.status(404).json({ activityNotExists: "Can't find that activity", devMsg: err }));
-});
+		.catch(err => res.status(404).json({ message: "Can't find that activity", devMsg: err }))
+);
 
 module.exports = router;

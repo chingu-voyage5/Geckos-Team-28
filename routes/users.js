@@ -32,7 +32,7 @@ router.post('/register', (req, res) => {
 			// If email exists throw error
 			if (user) {
 				errors.email = 'Email is already in use';
-				return res.status(400).json(errors);
+				return res.status(400).json({ message: 'Email is already in use', devMsg: errors });
 			}
 
 			const { email, password, fullName, username } = req.body;
@@ -61,11 +61,11 @@ router.post('/register', (req, res) => {
 					newUser
 						.save()
 						.then(savedUser => res.json(savedUser))
-						.catch(err => res.json({ msg: 'bcrypt error', err }));
+						.catch(err => res.json({ message: 'bcrypt error', devMsg: err }));
 				});
 			});
 		})
-		.catch(err => res.status(400).json(err));
+		.catch(err => res.status(400).json({ message: 'Something bad happened. Please try again', devMsg: err }));
 });
 
 /**
@@ -90,14 +90,14 @@ router.post('/login', (req, res) => {
 			// Check for user
 			if (!user) {
 				errors.email = 'User not found';
-				return res.status(404).json(errors);
+				return res.status(404).json({ message: 'User not found', devMsg: errors });
 			}
 
 			// Check password
 			bcrypt.compare(password, user.password).then(isMatch => {
 				if (!isMatch) {
 					errors.password = 'Wrong credentials';
-					return res.status(400).json(errors);
+					return res.status(400).json({ message: 'Wrong credentials', devMsg: errors });
 				}
 				// Pass good, create JWT payload
 				const payload = {
@@ -121,7 +121,7 @@ router.post('/login', (req, res) => {
 				);
 			});
 		})
-		.catch(err => res.status(400).json(err));
+		.catch(err => res.status(400).json({ message: 'Something bad happened. Please try again', devMsg: err }));
 });
 
 module.exports = router;
