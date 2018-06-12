@@ -41,11 +41,9 @@ const FormikLogin = withFormik({
 			.post('/api/users/login', { email, password })
 			.then(result => {
 				localStorage.setItem('jwtToken', result.data.token);
-				console.log(result);
 			})
 			.catch(error => {
 				if (error.response.status === 400) {
-					console.log(error.response.data);
 				}
 			});
 
