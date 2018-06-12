@@ -36,9 +36,8 @@ describe('API /api/users/login', () => {
 			.send({ password: '1234567', email: 'unit@testing.com' })
 			.end(function(err, res) {
 				if (err) throw err;
-				expect(res.body).to.have.property('password');
-				console.log(res.body.password);
-				expect(res.body.password).to.equal('Wrong credentials');
+				expect(res.body.devMsg).to.have.property('password');
+				expect(res.body.message).to.equal('Wrong credentials');
 				expect(res).not.to.have.status(200);
 				done();
 			});
@@ -50,7 +49,7 @@ describe('API /api/users/login', () => {
 			.send({ password: '12345678', email: 'unittesting@abv.bg' })
 			.end(function(err, res) {
 				if (err) throw err;
-				expect(res.body.email).to.equal('User not found');
+				expect(res.body.message).to.equal('User not found');
 				expect(res).not.to.have.status(200);
 				done();
 			});
@@ -120,7 +119,7 @@ describe('API /api/users/register', () => {
 			})
 			.end(function(err, res) {
 				if (err) throw err;
-				expect(res.body.email).to.equal('Email is already in use');
+				expect(res.body.message).to.equal('Email is already in use');
 				done();
 			});
 	});
@@ -167,7 +166,7 @@ describe('API /api/users/register', () => {
 			})
 			.end(function(err, res) {
 				if (err) throw err;
-				expect(res.body.email).to.equal('Email is already in use');
+				expect(res.body.message).to.equal('Email is already in use');
 				done();
 			});
 	});
