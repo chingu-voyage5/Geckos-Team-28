@@ -62,6 +62,28 @@ router.post('/', passport.authenticate('jwt', { session: false }), (req, res) =>
 });
 
 /**
+ * @route   PUT api/routines/:routine_id
+ * @desc    Update routine
+ * @access  Private
+ */
+router.put('/:routine_id', passport.authenticate('jwt', { session: false }), (req, res) => {
+	const { errors, isValid } = validateRoutine(req.body);
+	const { id } = req.user;
+	const updatedRoutine = {
+		user: id,
+		blockName: req.body.blockName,
+		description: req.body.description,
+	};
+	// Check if input is valid
+	if (!isValid) return res.status(400).json(errors);
+
+	// Update NOTE: With _id we can add user id, if we want to be sure that owner user is updating routine
+	return Routine.findOneAndUpdate({ _id: req.params.routine_id }, { $set: updatedRoutine }, { new: true })
+		.then(routine => res.json(routine))
+		.catch(err => res.status(404).json({ routineNotFound: 'Routine not found', devMsg: err }));
+});
+
+/**
  * @route   DELETE api/routines/:routine_id
  * @desc    Delete routine by id
  * @access  Private
@@ -114,6 +136,46 @@ router.post('/activity/:routine_id', passport.authenticate('jwt', { session: fal
 				.catch(err => res.status(404).json({ message: 'Routine not found', devMsg: err }));
 		})
 		.catch(err => res.status(404).json({ message: 'Routine not found', devMsg: err }));
+});
+
+/**
+ * @route   PUT api/routines/activity/:routine_id/:activity_id
+ * @desc    Update routine activity
+ * @access  Private
+ */
+router.put('/activity/:routine_id/:activity_id', passport.authenticate('jwt', { session: false }), (req, res) => {
+	const { errors, isValid } = validateActivity(req.body);
+	// Check if input is valid
+	if (!isValid) return res.status(400).json(errors);
+
+	const updatedActivity = {
+		user: req.user.id,
+		name: req.body.name,
+		startTime: req.body.startTime,
+		endTime: req.body.endTime,
+	};
+
+	Routine.findById(req.params.routine_id)
+		.then(routine => {
+			// Check if activity exists
+			if (routine.activities.filter(activity => activity._id.toString() === req.params.activity_id).length === 0) {
+				return res.status(404).json({ activityNotExists: "Can't find that activity!" });
+			}
+
+			const updatedActivities = routine.activities.map(activity => {
+				if (activity._id.toString() === req.params.activity_id) {
+					activity = updatedActivity;
+				}
+				return activity;
+			});
+
+			// Updates
+			// NOTE: I'll look for better solution, this looks like a hack to me
+			return Routine.findOneAndUpdate({ _id: routine._id }, { $set: { activities: updatedActivities } }, { new: true })
+				.then(profile => res.json(profile))
+				.catch(err => res.json({ errHappened: 'Somethings wrong, please try again', devMsg: err }));
+		})
+		.catch(err => res.status(404).json({ activityNotExists: "Can't find that activity", devMsg: err }));
 });
 
 /**
