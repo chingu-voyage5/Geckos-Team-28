@@ -1,0 +1,52 @@
+// Color Palette
+
+// TBD
+
+// Font vars
+
+:root {
+	--font-size-base: 10px;
+	--line-height-base: 150%;
+	--font-primary: 'Open Sans', 'Helvetica Neue Light', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
+
+	--font-weight-light: 100;
+	--font-weight-normal: 300;
+	--font-weight-medium: 500;
+	--font-weight-bold: 700;
+}
+
+/*
+Media query manager mixin
+0-600px:    Phone
+600-900px:  Tablet-portrait mode
+900-1200px:  Tablet-landscape mode
+1200-1800px:  Desktop - this is where all current styles apply
+1800px:  xlDesktop
+1em === 16px
+*/
+@mixin respond($breakpoint) {
+	@if $breakpoint == phone {
+		// 600px
+		@media only screen and (max-width: 37.5em) {
+			@content;
+		}
+	}
+	@if $breakpoint == tab-port {
+		// 900px
+		@media only screen and (max-width: 56.25em) {
+			@content;
+		}
+	}
+	@if $breakpoint == tab-land {
+		// 1200px
+		@media only screen and (max-width: 75em) {
+			@content;
+		}
+	}
+	@if $breakpoint == big-desktop {
+		// 1800px
+		@media only screen and (min-width: 112.5em) {
+			@content;
+		}
+	}
+}

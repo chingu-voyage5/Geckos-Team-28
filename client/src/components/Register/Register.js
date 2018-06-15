@@ -1,5 +1,4 @@
 import React from 'react';
-import './styles.css';
 import { withFormik, Form, Field } from 'formik';
 import Yup from 'yup';
 import axios from 'axios';

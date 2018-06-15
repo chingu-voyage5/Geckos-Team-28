@@ -1,0 +1,122 @@
+/* -----------------------------------------------------------------------------
+  This file contains base styles.
+  ----------------------------------------------------------------------------- */
+
+/**
+  * Set up a decent box model on the root element
+  */
+html {
+	box-sizing: border-box;
+}
+
+/**
+  * Make all elements from the DOM inherit from the parent box-sizing
+  * Since `*` has a specificity of 0, it does not override the `html` value
+  * making all elements inheriting from the root box-sizing value
+  * See: https://css-tricks.com/inheriting-box-sizing-probably-slightly-better-best-practice/
+  */
+*,
+*::before,
+*::after {
+	box-sizing: inherit;
+}
+
+/* ==========================================================================
+	Base styles: opinionated defaults
+	========================================================================== */
+*,
+*::before,
+*::after {
+	margin: 0;
+	padding: 0;
+}
+
+/*
+  * Remove text-shadow in selection highlight:
+  * https://twitter.com/miketaylr/status/12228805301
+  *
+  * These selection rule sets have to be separate.
+  * Customize the background color to match your design.
+  */
+
+::selection {
+	background: #b3d4fc;
+	text-shadow: none;
+}
+
+/*
+  * A better looking default horizontal rule
+  */
+
+hr {
+	display: block;
+	height: 1px;
+	border: 0;
+	border-top: 1px solid #ccc;
+	margin: 1em 0;
+	padding: 0;
+}
+
+/*
+  * Remove the gap between audio, canvas, iframes,
+  * images, videos and the bottom of their containers:
+  * https://github.com/h5bp/html5-boilerplate/issues/440
+  */
+
+audio,
+canvas,
+iframe,
+img,
+svg,
+video {
+	vertical-align: middle;
+}
+
+/*
+  * Remove default fieldset styles.
+  */
+
+fieldset {
+	border: 0;
+	margin: 0;
+	padding: 0;
+}
+
+/*
+  * Allow only vertical resizing of textareas.
+  */
+
+textarea {
+	resize: vertical;
+}
+
+/* ==========================================================================
+	Custom CSS ( font config and similar stufsf here)
+	========================================================================== */
+
+/* Fonts */
+
+html {
+	/* 1rem = 10px; 10px/16px = 62.5% */
+	font-size: var(--font-size-base);
+
+	@include respond(big-desktop) {
+		// 1rem = 12px; 12/16 = 75%; width > 1800?;
+		font-size: 75%;
+	}
+	@include respond(tab-land) {
+		// 1rem = 9px; 9/16 = 56.25%; width < 1200?;
+		font-size: 56.25%;
+	}
+	@include respond(tab-port) {
+		// 1rem = 8px; 8/16 = 50%; width < 900?;
+		font-size: 50%;
+	}
+}
+
+body {
+	font-family: var(--font-primary);
+	font-weight: var(--font-weight-normal);
+	line-height: var(--line-height-base);
+	// color: TBD;
+}
