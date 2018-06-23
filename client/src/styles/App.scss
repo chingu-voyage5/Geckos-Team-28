@@ -1,5 +1,5 @@
 // Main configuration
-@import 'variables', 'base';
+@import 'variables', 'base', 'typography';
 
 // Helpers
 // TBD
@@ -8,4 +8,4 @@
 // TBD
 
 // Components
-@import 'login', 'register';
+@import 'login', 'register', 'landing';
