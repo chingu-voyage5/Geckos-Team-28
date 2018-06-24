@@ -1,0 +1,85 @@
+.heading {
+	font-weight: 300;
+	text-transform: uppercase;
+	letter-spacing: 0.2rem;
+	line-height: 145%;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+
+	&--primary {
+		font-size: 6.2rem;
+		line-height: 130%;
+		word-spacing: 0.3rem;
+		margin: 0;
+		color: var(--font-color-light);
+
+		&:after {
+			content: ' ';
+			height: 1px;
+			width: 80%;
+			margin-top: 1rem;
+			background: var(--font-color-light);
+		}
+
+		@include respond(tab-port) {
+			font-size: 3.6rem;
+		}
+
+		@include respond(phone) {
+			font-size: 2.5rem;
+		}
+	}
+
+	&--secondary {
+		font-size: 3rem;
+		word-spacing: 0.3rem;
+		text-align: center;
+
+		@include respond(tab-port) {
+			font-size: 3rem;
+		}
+
+		@include respond(phone) {
+			font-size: 2rem;
+		}
+
+		&:after {
+			content: ' ';
+			height: 1px;
+			width: 15rem;
+			margin-top: 3rem;
+			background: var(--accent-color);
+		}
+	}
+
+	&--tertiary {
+		font-size: 2rem;
+		text-align: center;
+
+		&:after {
+			content: ' ';
+			height: 1px;
+			width: 15rem;
+			margin-top: 3rem;
+			background: var(--accent-color);
+		}
+	}
+}
+
+.paragraph {
+	line-height: 145%;
+	width: 70%;
+	margin-left: 15%;
+	text-align: center;
+	font-size: 2rem;
+
+	@include respond(tab-land) {
+		font-size: 1.8rem;
+	}
+
+	@include respond(tab-port) {
+		font-size: 1.6rem;
+	}
+}

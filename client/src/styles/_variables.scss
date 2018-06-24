@@ -1,5 +1,3 @@
-// Color Palette
-
 // TBD
 
 // Font vars
@@ -8,12 +6,25 @@
 	--font-size-base: 10px;
 	--line-height-base: 150%;
 	--font-primary: 'Open Sans', 'Helvetica Neue Light', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
-
+	--font-color-light: #ffffff;
+	--font-color-dark: #212121;
+	--font-color-mid: #757575;
 	--font-weight-light: 100;
 	--font-weight-normal: 300;
 	--font-weight-medium: 500;
 	--font-weight-bold: 700;
+
+	// Color Palette
+
+	--primary: #2196f3;
+	--primary-dark: #1976d2;
+	--primary-light: #bbdefb;
+	--accent-color: #ff5722;
+	--divider-color: #bdbdbd;
 }
+
+$accent: #ff5722;
+$black: #000;
 
 /*
 Media query manager mixin
