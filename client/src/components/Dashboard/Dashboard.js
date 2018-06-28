@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
+import Routine from '../Routine/Routine';
+
 export class Dashboard extends Component {
 	static propTypes = {};
 
@@ -12,7 +14,7 @@ export class Dashboard extends Component {
 					<h2 className="header__title">My Miracle Morning</h2>
 				</header>
 				<section className="routines">
-					<div />
+					<Routine />
 				</section>
 				<aside className="calendar">
 					<p>Calendar placeholder</p>

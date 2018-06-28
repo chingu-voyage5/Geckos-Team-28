@@ -3,4 +3,40 @@
 	border: 1px solid green;
 
 	padding: 2.5rem;
+	display: flex;
+	flex-direction: column;
+	// justify-content: center;
+	align-items: center;
+
+	& .routine {
+		width: 90%;
+		height: 27rem;
+		border: 1px solid black;
+		padding: 0 2rem;
+		font-weight: 400;
+		display: flex;
+		flex-direction: column;
+		// align-items: center;
+
+		&__title {
+			margin: 0.5rem 0;
+		}
+	}
+
+	& .activities {
+		padding: 2rem;
+		font-size: 1.5rem;
+		width: 100%;
+		height: 85%;
+		border: 1px solid white;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+
+		&__add {
+			padding: 1rem;
+			display: flex;
+			justify-content: center;
+		}
+	}
 }
