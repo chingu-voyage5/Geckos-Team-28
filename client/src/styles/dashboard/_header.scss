@@ -1,0 +1,13 @@
+.header {
+	grid-area: head;
+	border: 1px solid blue;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 100%;
+
+	&__title {
+		font-weight: normal;
+		font-size: 2rem;
+	}
+}
