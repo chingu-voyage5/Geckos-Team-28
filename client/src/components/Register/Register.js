@@ -1,22 +1,23 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import { withFormik, Form, Field } from 'formik';
 import Yup from 'yup';
-import axios from 'axios';
+
+import { registerUser } from '../../Redux/actions/authActions';
 
 // these are props passed from withFormik
-const Register = ({ values, errors, touched }) => (
+const Register = ({ errors, touched }) => (
 	<Form>
 		<div>{touched.email && errors.email && <p>{errors.email}</p>}</div>
 		<Field type="email" name="email" placeholder="Email Address" />
 
-		<div>{touched.emailConfirm && errors.emailConfirm && <p>{errors.emailConfirm}</p>}</div>
-		<Field type="email" name="emailConfirm" placeholder="Confirm email" />
-
 		<div>{touched.password && errors.password && <p>{errors.password}</p>}</div>
 		<Field type="password" name="password" placeholder="Password" />
 
-		<div>{touched.passwordConfirm && errors.passwordConfirm && <p>{errors.passwordConfirm}</p>}</div>
-		<Field type="password" name="passwordConfirm" placeholder="Confirm password" />
+		<div>{touched.password2 && errors.password2 && <p>{errors.password2}</p>}</div>
+		<Field type="password" name="password2" placeholder="Confirm password" />
 
 		<div>{touched.fullName && errors.fullName && <p>{errors.fullName}</p>}</div>
 		<Field type="text" name="fullName" placeholder="Full name" />
@@ -28,14 +29,27 @@ const Register = ({ values, errors, touched }) => (
 	</Form>
 );
 
+Register.propTypes = {
+	errors: PropTypes.shape({
+		email: PropTypes.string,
+		password: PropTypes.string,
+	}),
+	touched: PropTypes.shape({
+		email: PropTypes.bool,
+		password: PropTypes.bool,
+		password2: PropTypes.bool,
+		fullName: PropTypes.bool,
+		username: PropTypes.bool,
+	}),
+};
+
 // withFormik HOC
 const FormikRegister = withFormik({
-	mapPropsToValues({ email, emailConfirm, password, passwordConfirm, fullName, username }) {
+	mapPropsToValues({ email, password, passwordConfirm, fullName, username }) {
 		return {
 			email: email || '',
-			emailConfirm: emailConfirm || '',
 			password: password || '',
-			passwordConfirm: passwordConfirm || '',
+			password2: passwordConfirm || '',
 			fullName: fullName || '',
 			username: username || '',
 		};
@@ -44,36 +58,33 @@ const FormikRegister = withFormik({
 		email: Yup.string()
 			.email('Email not valid')
 			.required('Email is required'),
-		emailConfirm: Yup.mixed().test('Match', 'Email addresses do not match', function() {
-			return this.parent.emailConfirm === this.parent.email;
-		}),
 		password: Yup.string()
 			.min(8, 'Password must be 8 characters or longer')
 			.required('Password is required'),
-		passwordConfirm: Yup.mixed().test('Match', 'Passwords do not match', function() {
-			return this.parent.passwordConfirm === this.parent.password;
+		password2: Yup.mixed().test('Match', 'Passwords do not match', function() {
+			return this.parent.password2 === this.parent.password;
 		}),
-		fullName: Yup.string().required('Your name is required'),
-		username: Yup.string().required('Your username is required'),
+		fullName: Yup.string()
+			.min(2, 'Password must be 2 characters or longer')
+			.required('Your name is required'),
+		username: Yup.string()
+			.min(2, 'Password must be 2 characters or longer')
+			.required('Your username is required'),
 	}),
-
-	handleSubmit(values, { resetForm, setSubmitting }) {
-		const { email, emailConfirm, password, passwordConfirm, fullName, username } = values;
-
-		axios
-			.post('/api/users/register', { email, emailConfirm, password, passwordConfirm, fullName, username })
-			.then(result => {
-				console.log(result);
-			})
-			.catch(error => {
-				if (error.response.status === 400) {
-					console.log(error.response.data);
-				}
-			});
-
+	handleSubmit(values, { props, resetForm, setSubmitting }) {
+		props.registerUser(values, props.history);
 		resetForm();
 		setSubmitting(false);
 	},
 })(Register);
 
-export default FormikRegister;
+const mapDispatchToProps = dispatch => ({
+	registerUser: (userData, history) => dispatch(registerUser(userData, history)),
+});
+
+export default withRouter(
+	connect(
+		null,
+		mapDispatchToProps
+	)(FormikRegister)
+);
