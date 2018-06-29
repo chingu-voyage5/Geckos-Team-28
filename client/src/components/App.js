@@ -32,11 +32,17 @@ const App = props => {
 };
 
 App.propTypes = {
+	user: PropTypes.shape({}),
 	isAuthenticated: PropTypes.bool,
 };
 
 const mapStateToProps = state => ({
+	user: state.auth.user,
 	isAuthenticated: state.auth.isAuthenticated,
 });
+
+// const mapDispatchToProps = dispatch => ({
+// 	fetchRoutines: userId => dispatch(fetchRoutines(userId)),
+// });
 
 export default connect(mapStateToProps)(App);

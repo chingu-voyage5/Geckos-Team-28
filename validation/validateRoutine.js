@@ -14,8 +14,8 @@ module.exports = function validateRegisterInput(data) {
 		errors.blockName = 'Routine name field is required!';
 	}
 
-	if (!Validator.isLength(data.description, { min: 2, max: 30 })) {
-		errors.description = 'Description must be between 2 and 30 characters!';
+	if (!Validator.isLength(data.description, { min: 2, max: 120 })) {
+		errors.description = 'Description must be between 2 and 120 characters!';
 	}
 	if (Validator.isEmpty(data.description)) {
 		errors.description = 'Description field is required!';

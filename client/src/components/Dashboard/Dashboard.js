@@ -2,10 +2,21 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
+import { fetchRoutines } from '../../Redux/actions/routineActions';
+
 import Routine from '../Routine/Routine';
 
 export class Dashboard extends Component {
-	static propTypes = {};
+	static propTypes = {
+		routinesData: PropTypes.shape({
+			routines: PropTypes.arrayOf(PropTypes.object),
+		}),
+		fetchRoutines: PropTypes.func.isRequired,
+	};
+
+	componentDidMount = () => {
+		this.props.fetchRoutines();
+	};
 
 	render() {
 		return (
@@ -14,7 +25,9 @@ export class Dashboard extends Component {
 					<h2 className="header__title">My Miracle Morning</h2>
 				</header>
 				<section className="routines">
-					<Routine />
+					{this.props.routinesData.routines
+						? this.props.routinesData.routines.map(routine => <Routine key={routine._id} routine={routine} />)
+						: null}
 				</section>
 				<aside className="calendar">
 					<p>Calendar placeholder</p>
@@ -27,9 +40,13 @@ export class Dashboard extends Component {
 	}
 }
 
-const mapStateToProps = state => ({});
+const mapStateToProps = state => ({
+	routinesData: state.routines,
+});
 
-const mapDispatchToProps = dispatch => ({});
+const mapDispatchToProps = dispatch => ({
+	fetchRoutines: userId => dispatch(fetchRoutines(userId)),
+});
 
 export default connect(
 	mapStateToProps,

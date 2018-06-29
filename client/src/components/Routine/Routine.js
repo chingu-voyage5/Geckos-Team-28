@@ -6,18 +6,20 @@ import Input from '../common/Input';
 import InputButton from '../common/InputButton';
 import TimePicker from '../TimePicker/TimePicker';
 
-const Routine = props => {
+const Routine = ({ routine }) => {
 	return (
 		<div className="routine">
-			<h4 className="routine__title">Just a title</h4>
+			<div>
+				<span className="routine__name">{routine.blockName}</span>
+				{' - '}
+				<span className="routine__description">{routine.description}</span>
+			</div>
 			<div className="activities">
-				<div className="activities__box">
-					<Activity />
-					<Activity />
-					<Activity />
-					<Activity />
-					<Activity />
-				</div>
+				<ul className="activities__box">
+					{routine.activities
+						? routine.activities.map(activity => <Activity key={activity._id} activity={activity} />)
+						: null}
+				</ul>
 				<div className="activities__add">
 					<Input />
 					<TimePicker />

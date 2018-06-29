@@ -13,16 +13,17 @@ const validateActivity = require('../validation/validateActivity');
  * @desc    Get routines
  * @access  Private
  */
-router.get('/', passport.authenticate('jwt', { session: false }), (req, res) =>
-	User.findById(req.user.id).then(profile => {
+router.get('/', passport.authenticate('jwt', { session: false }), (req, res) => {
+	const id = req.user.id || req.body.id;
+	User.findById(id).then(profile => {
 		if (!profile) return res.status(404);
 
-		return Routine.find({ user: req.user.id })
+		return Routine.find({ user: id })
 			.sort({ date: -1 })
 			.then(routines => res.json(routines))
 			.catch(err => res.status(404).json({ message: 'No routines, or something bad happened :(', devMsg: err }));
-	})
-);
+	});
+});
 
 /**
  * @route   GET api/routines/:routine_id
