@@ -19,7 +19,7 @@ router.get('/', passport.authenticate('jwt', { session: false }), (req, res) => 
 		if (!profile) return res.status(404);
 
 		return Routine.find({ user: id })
-			.sort({ date: -1 })
+			.sort({ date: 1 })
 			.then(routines => res.json(routines))
 			.catch(err => res.status(404).json({ message: 'No routines, or something bad happened :(', devMsg: err }));
 	});
