@@ -1,32 +1,15 @@
 .nav {
-	position: sticky;
 	height: 5rem;
-	width: 100%;
 	background: var(--font-color-mid);
+	position: sticky;
 	display: flex;
-	justify-content: space-between;
+	align-items: center;
 
-	& .logo {
-		width: 5rem;
-		height: 100%;
-		background-image: url(../assets/sunrise.svg);
-		background-repeat: no-repeat;
-		margin-left: 0.5rem;
+	& ul.inline li.nav__item {
+		margin: 0 1.5rem;
 	}
 
-	& .nav__menu,
-	& .nav__pages {
-		display: flex;
-		align-items: center;
-		list-style: none;
-		font-size: 1.5rem;
-	}
-
-	& .nav__menu .nav__menu__item {
-		margin: 0 2rem;
-	}
-
-	& .nav__pages .nav__pages__item {
-		margin: 0 2rem;
+	& ul.inline {
+		margin: 0;
 	}
 }

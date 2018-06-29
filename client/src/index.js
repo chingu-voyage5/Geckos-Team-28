@@ -3,6 +3,9 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import jwtDecode from 'jwt-decode';
 
+import './styles/paper.min.css';
+import './styles/App.css';
+
 import configureStore from './Redux/configureStore';
 import App from './components/App';
 import { setAuthToken } from './helpers';

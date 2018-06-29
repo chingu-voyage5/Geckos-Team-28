@@ -2,20 +2,35 @@ import React from 'react';
 
 const Nav = () => {
 	return (
-		<nav className="nav">
-			<span className="logo" />
-			<ul className="nav__pages">
-				<li className="nav__pages__item">Dashboard</li>
-				<li className="nav__pages__item">My Journal</li>
-				<li className="nav__pages__item">About</li>
-				<li className="nav__pages__item">Blog</li>
-				<li className="nav__pages__item">Contact Us</li>
-			</ul>
-			<ul className="nav__menu">
-				<li className="nav__menu__item">Login</li>
-				<li className="nav__menu__item">Register</li>
-				<li className="nav__menu__item">Logout</li>
-			</ul>
+		<nav className="border fixed split-nav nav">
+			<div className="nav-brand">
+				<h3>
+					<a href="#">Your Morning Routine</a>
+				</h3>
+			</div>
+			<div className="collapsible">
+				<input id="collapsible1" type="checkbox" name="collapsible1" />
+				<button>
+					<label htmlFor="collapsible1">
+						<div className="bar1" />
+						<div className="bar2" />
+						<div className="bar3" />
+					</label>
+				</button>
+				<div className="collapsible-body">
+					<ul className="inline">
+						<li className="nav__item">
+							<a href="#">Journal</a>
+						</li>
+						<li className="nav__item">
+							<a href="#">About</a>
+						</li>
+						<li className="nav__item">
+							<a href="#">Logout</a>
+						</li>
+					</ul>
+				</div>
+			</div>
 		</nav>
 	);
 };

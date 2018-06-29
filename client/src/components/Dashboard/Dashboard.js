@@ -24,15 +24,15 @@ export class Dashboard extends Component {
 				<header className="header">
 					<h2 className="header__title">My Miracle Morning</h2>
 				</header>
-				<section className="routines">
+				<section className="routines border border-primary">
 					{this.props.routinesData.routines
 						? this.props.routinesData.routines.map(routine => <Routine key={routine._id} routine={routine} />)
 						: null}
 				</section>
-				<aside className="calendar">
+				<aside className="calendar border border-6 border-primary">
 					<p>Calendar placeholder</p>
 				</aside>
-				<aside className="clock">
+				<aside className="clock border border-6 border-primary">
 					<p>Clock placeholder</p>
 				</aside>
 			</main>

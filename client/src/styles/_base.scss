@@ -125,9 +125,20 @@ body {
 	height: 100%;
 }
 
+// Papercss override
+ul li::before {
+	content: '';
+}
+
 #root {
 	width: 100%;
 	display: flex;
 	flex-direction: column;
 	height: 100%;
+}
+
+.calendar,
+.clock {
+	height: 50%;
+	align-self: center;
 }
