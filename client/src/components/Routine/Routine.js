@@ -2,9 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import Activity from '../Activity/Activity';
-import Input from '../common/Input';
-import InputButton from '../common/InputButton';
-import TimePicker from '../TimePicker/TimePicker';
 
 import Portal from '../Portal/Portal';
 import AddForm from '../common/AddForm';

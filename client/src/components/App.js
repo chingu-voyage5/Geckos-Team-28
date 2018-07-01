@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { BrowserRouter as Router, Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
 
+import { logoutUser } from '../Redux/actions/authActions';
 import Login from './Login/Login';
 import Register from './Register/Register';
 import Landing from './Landing/Landing';
@@ -17,7 +18,7 @@ const App = props => {
 	return (
 		<Router>
 			<React.Fragment>
-				<Nav isAuthenticated={props.isAuthenticated} />
+				<Nav isAuthenticated={props.isAuthenticated} logout={props.logout} />
 				<Switch>
 					<PublicRoute exact path="/" component={Landing} isAuthenticated={props.isAuthenticated} />
 					<PublicRoute path="/register" component={Register} isAuthenticated={props.isAuthenticated} />
@@ -32,6 +33,7 @@ const App = props => {
 
 App.propTypes = {
 	user: PropTypes.shape({}),
+	logout: PropTypes.func.isRequired,
 	isAuthenticated: PropTypes.bool,
 };
 
@@ -40,8 +42,11 @@ const mapStateToProps = state => ({
 	isAuthenticated: state.auth.isAuthenticated,
 });
 
-// const mapDispatchToProps = dispatch => ({
-// 	fetchRoutines: userId => dispatch(fetchRoutines(userId)),
-// });
+const mapDispatchToProps = dispatch => ({
+	logout: () => dispatch(logoutUser()),
+});
 
-export default connect(mapStateToProps)(App);
+export default connect(
+	mapStateToProps,
+	mapDispatchToProps
+)(App);

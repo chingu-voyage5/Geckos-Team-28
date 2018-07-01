@@ -6,9 +6,9 @@ const Button = props => {
 	const styles = ['button', props.customStyles];
 
 	return (
-		<NavLink to={props.to} className={styles.join(' ')}>
+		<a className={styles.join(' ')} onClick={props.handleClick}>
 			{props.buttonText}
-		</NavLink>
+		</a>
 	);
 };
 

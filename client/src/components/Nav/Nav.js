@@ -1,7 +1,8 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
-const Nav = () => {
-	return (
+const Nav = props => {
+	return props.isAuthenticated ? (
 		<nav className="border fixed split-nav nav background-primary">
 			<div className="nav-brand">
 				<h3>
@@ -26,13 +27,20 @@ const Nav = () => {
 							<a href="#">About</a>
 						</li>
 						<li className="nav__item">
-							<a href="#">Logout</a>
+							<a href="#" onClick={props.logout}>
+								Logout
+							</a>
 						</li>
 					</ul>
 				</div>
 			</div>
 		</nav>
-	);
+	) : null;
+};
+
+Nav.propTypes = {
+	logout: PropTypes.func.isRequired,
+	isAuthenticated: PropTypes.bool,
 };
 
 export default Nav;
