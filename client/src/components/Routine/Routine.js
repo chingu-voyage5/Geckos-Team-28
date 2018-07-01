@@ -28,6 +28,11 @@ const Routine = ({ routine }) => {
 					<TimePicker />
 					<InputButton />
 				</div>
+				<div className="to-top" popover-right="Add new activity">
+					<a href="#top" className="paper-btn margin">
+						+
+					</a>
+				</div>
 			</div>
 		</div>
 	);
