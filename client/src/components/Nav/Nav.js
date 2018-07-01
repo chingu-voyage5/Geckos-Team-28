@@ -2,7 +2,7 @@ import React from 'react';
 
 const Nav = () => {
 	return (
-		<nav className="border fixed split-nav nav">
+		<nav className="border fixed split-nav nav background-primary">
 			<div className="nav-brand">
 				<h3>
 					<a href="#">Your Morning Routine</a>

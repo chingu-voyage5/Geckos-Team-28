@@ -117,6 +117,7 @@ html {
 }
 
 body {
+	background: var(--divider-color);
 	font-family: var(--font-primary);
 	font-weight: var(--font-weight-normal);
 	line-height: var(--line-height-base);

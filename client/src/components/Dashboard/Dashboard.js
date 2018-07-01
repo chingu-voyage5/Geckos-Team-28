@@ -20,19 +20,24 @@ export class Dashboard extends Component {
 
 	render() {
 		return (
-			<main className="dashboard">
+			<main className="dashboard border border-4 border-primary">
 				<header className="header">
 					<h2 className="header__title">My Miracle Morning</h2>
 				</header>
-				<section className="routines border border-primary">
+				<section className="routines border border-primary background-success">
 					{this.props.routinesData.routines
 						? this.props.routinesData.routines.map(routine => <Routine key={routine._id} routine={routine} />)
 						: null}
+					<div className="to-top" popover-right="Add new routine">
+						<a href="#top" className="paper-btn margin">
+							+
+						</a>
+					</div>
 				</section>
-				<aside className="calendar border border-6 border-primary">
+				<aside className="calendar border border-6 border-primary background-secondary">
 					<p>Calendar placeholder</p>
 				</aside>
-				<aside className="clock border border-6 border-primary">
+				<aside className="clock border border-6 border-primary background-secondary">
 					<p>Clock placeholder</p>
 				</aside>
 			</main>

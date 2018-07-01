@@ -14,10 +14,12 @@ const Routine = ({ routine }) => {
 				{' - '}
 				<span className="routine__description">{routine.description}</span>
 			</div>
-			<div className="activities border border-6 border-primary shadow shadow-hover">
+			<div className="activities border border-6 border-primary shadow shadow-hover background-secondary">
 				<ul className="activities__box">
 					{routine.activities
-						? routine.activities.map(activity => <Activity key={activity._id} activity={activity} />)
+						? routine.activities.map((activity, index) => (
+								<Activity key={activity._id} index={index} activity={activity} />
+						  ))
 						: null}
 				</ul>
 				<div className="activities__add">
