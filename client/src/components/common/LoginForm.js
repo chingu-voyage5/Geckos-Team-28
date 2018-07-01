@@ -7,7 +7,7 @@ import Yup from 'yup';
 import { loginUser } from '../../Redux/actions/authActions';
 import { CloseIcon } from '../../assets/CloseIcon';
 
-const LandingForm = ({ errors, touched, closeCallback }) => {
+const LoginForm = ({ errors, touched, closeCallback }) => {
 	return (
 		<Form className="add-form centered border border-success">
 			<div onClick={closeCallback}>
@@ -20,10 +20,7 @@ const LandingForm = ({ errors, touched, closeCallback }) => {
 						<label htmlFor="email">Email</label>
 						<Field className="input-block" name="email" id="email" placeholder="Email" />
 						<div>{touched.email && errors.email && <p>{errors.email}</p>}</div>
-					</div>
-				</div>
-				<div className="col sm-8">
-					<div className="form-group">
+
 						<label htmlFor="pass">Password</label>
 						<Field className="input-block" name="password" id="pass" placeholder="Password" />
 						<div>{touched.password && errors.password && <p>{errors.password}</p>}</div>
@@ -35,7 +32,7 @@ const LandingForm = ({ errors, touched, closeCallback }) => {
 	);
 };
 
-LandingForm.propTypes = {
+LoginForm.propTypes = {
 	errors: PropTypes.shape({
 		email: PropTypes.string,
 		password: PropTypes.string,
@@ -65,7 +62,7 @@ const FormikLogin = withFormik({
 		resetForm();
 		setSubmitting(false);
 	},
-})(LandingForm);
+})(LoginForm);
 
 const mapDispatchToProps = dispatch => ({
 	loginUser: userData => dispatch(loginUser(userData)),

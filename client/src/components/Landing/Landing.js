@@ -2,7 +2,8 @@ import React from 'react';
 
 import Button from '../common/Button';
 import Portal from '../Portal/Portal';
-import LandingForm from '../common/LandingForm';
+import LoginForm from '../common/LoginForm';
+import RegisterForm from '../common/RegisterForm';
 
 class Landing extends React.Component {
 	state = {
@@ -25,7 +26,11 @@ class Landing extends React.Component {
 			<div className="landing">
 				{this.state.isPortalVisible && (
 					<Portal>
-						<LandingForm closeCallback={this.onPortalClose} type={this.state.type} />
+						{this.state.type === 'login' ? (
+							<LoginForm closeCallback={this.onPortalClose} />
+						) : (
+							<RegisterForm closeCallback={this.onPortalClose} />
+						)}
 					</Portal>
 				)}
 				<div className="container">
