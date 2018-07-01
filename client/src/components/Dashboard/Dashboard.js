@@ -5,6 +5,8 @@ import { connect } from 'react-redux';
 import { fetchRoutines } from '../../Redux/actions/routineActions';
 
 import Routine from '../Routine/Routine';
+import Portal from '../Portal/Portal';
+import AddForm from '../common/AddForm';
 
 export class Dashboard extends Component {
 	static propTypes = {
@@ -14,13 +16,32 @@ export class Dashboard extends Component {
 		fetchRoutines: PropTypes.func.isRequired,
 	};
 
+	state = {
+		isPortalVisible: false,
+	};
+
 	componentDidMount = () => {
 		this.props.fetchRoutines();
+	};
+
+	onPortalClose = e => {
+		e.preventDefault();
+		this.setState({ isPortalVisible: false });
+	};
+
+	onPortalOpen = e => {
+		e.preventDefault();
+		this.setState({ isPortalVisible: true });
 	};
 
 	render() {
 		return (
 			<main className="dashboard border border-4 border-primary">
+				{this.state.isPortalVisible && (
+					<Portal>
+						<AddForm closeCallback={this.onPortalClose} />
+					</Portal>
+				)}
 				<header className="header">
 					<h2 className="header__title">My Miracle Morning</h2>
 				</header>
@@ -28,8 +49,8 @@ export class Dashboard extends Component {
 					{this.props.routinesData.routines
 						? this.props.routinesData.routines.map(routine => <Routine key={routine._id} routine={routine} />)
 						: null}
-					<div className="to-top" popover-right="Add new routine">
-						<a href="#top" className="paper-btn margin">
+					<div className="open-portal" popover-right="Add new routine">
+						<a href="#" className="paper-btn margin" onClick={this.onPortalOpen}>
 							+
 						</a>
 					</div>

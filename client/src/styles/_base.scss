@@ -124,6 +124,11 @@ body {
 	// color: TBD;
 	width: 100%;
 	height: 100%;
+	position: relative;
+
+	&.portal-open {
+		overflow: hidden !important;
+	}
 }
 
 // Papercss override
@@ -141,6 +146,14 @@ form {
 	flex-direction: column;
 	height: 100%;
 }
+
+// #portal {
+// 	position: absolute;
+// 	top: 50%;
+// 	left: 50%;
+// 	transform: translate(-50%, -50%);
+// 	width: auto;
+// }
 
 .calendar,
 .clock {
