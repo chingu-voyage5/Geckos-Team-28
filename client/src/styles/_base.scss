@@ -130,6 +130,10 @@ ul li::before {
 	content: '';
 }
 
+form {
+	position: relative;
+}
+
 #root {
 	width: 100%;
 	display: flex;

@@ -1,7 +1,6 @@
 .nav {
 	height: 5rem;
 	background: var(--font-color-mid);
-	position: sticky;
 	display: flex;
 	align-items: center;
 
@@ -11,5 +10,9 @@
 
 	& ul.inline {
 		margin: 0;
+	}
+
+	&.fixed {
+		position: sticky;
 	}
 }
