@@ -1,13 +1,13 @@
 import React from 'react';
 
 import Button from '../common/Button';
-
 import Portal from '../Portal/Portal';
 import LandingForm from '../common/LandingForm';
 
 class Landing extends React.Component {
 	state = {
 		isPortalVisible: false,
+		type: '',
 	};
 
 	onPortalClose = e => {
@@ -15,9 +15,9 @@ class Landing extends React.Component {
 		this.setState({ isPortalVisible: false });
 	};
 
-	onPortalOpen = e => {
+	onPortalOpen = (e, type) => {
 		e.preventDefault();
-		this.setState({ isPortalVisible: true });
+		this.setState({ isPortalVisible: true, type });
 	};
 
 	render() {
@@ -25,7 +25,7 @@ class Landing extends React.Component {
 			<div className="landing">
 				{this.state.isPortalVisible && (
 					<Portal>
-						<LandingForm closeCallback={this.onPortalClose} />
+						<LandingForm closeCallback={this.onPortalClose} type={this.state.type} />
 					</Portal>
 				)}
 				<div className="container">
@@ -35,12 +35,12 @@ class Landing extends React.Component {
 					</h2>
 					<div className="cta h__mt--medium h__center-text">
 						<Button
-							handleClick={this.onPortalOpen}
+							handleClick={e => this.onPortalOpen(e, 'register')}
 							buttonText="Learn More"
 							customStyles="button--white button--animated"
 						/>
 						<Button
-							handleClick={this.onPortalOpen}
+							handleClick={e => this.onPortalOpen(e, 'login')}
 							buttonText="Sign In"
 							customStyles="button--primary button--animated"
 						/>

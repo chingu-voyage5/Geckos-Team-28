@@ -35,7 +35,7 @@ if (localStorage.getItem('jwtToken')) {
 		// Clear current profile
 		store.dispatch(clearUser());
 		// Redirect to login page
-		window.location.href = '/login';
+		window.location.href = '/';
 	}
 }
 

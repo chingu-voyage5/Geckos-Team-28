@@ -45,7 +45,7 @@ class Routine extends React.Component {
 							: null}
 					</ul>
 					<div className="open-portal" popover-right="Add new activity">
-						<a href="#" className="paper-btn margin" onClick={this.onPortalOpen}>
+						<a className="paper-btn margin" onClick={this.onPortalOpen}>
 							+
 						</a>
 					</div>

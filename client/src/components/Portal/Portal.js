@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
 
 const portalRoot = document.getElementById('portal');
-const body = document.getElementsByTagName('body')[0];
 
 export default class Portal extends Component {
 	static propTypes = {

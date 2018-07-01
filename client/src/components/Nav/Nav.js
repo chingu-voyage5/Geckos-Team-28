@@ -1,12 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { NavLink } from 'react-router-dom';
 
 const Nav = props => {
 	return props.isAuthenticated ? (
 		<nav className="border fixed split-nav nav background-primary">
 			<div className="nav-brand">
 				<h3>
-					<a href="#">Your Morning Routine</a>
+					<NavLink to="/dashboard">Your Morning Routine</NavLink>
 				</h3>
 			</div>
 			<div className="collapsible">
@@ -21,15 +22,13 @@ const Nav = props => {
 				<div className="collapsible-body">
 					<ul className="inline">
 						<li className="nav__item">
-							<a href="#">Journal</a>
+							<NavLink to="/journal">Journal</NavLink>
 						</li>
 						<li className="nav__item">
-							<a href="#">About</a>
+							<NavLink to="/about">About</NavLink>
 						</li>
 						<li className="nav__item">
-							<a href="#" onClick={props.logout}>
-								Logout
-							</a>
+							<a onClick={props.logout}>Logout</a>
 						</li>
 					</ul>
 				</div>

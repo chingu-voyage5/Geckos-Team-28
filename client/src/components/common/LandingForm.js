@@ -1,56 +1,77 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { withFormik, Form, Field } from 'formik';
+import { connect } from 'react-redux';
+import Yup from 'yup';
 
+import { loginUser } from '../../Redux/actions/authActions';
 import { CloseIcon } from '../../assets/CloseIcon';
 
-const AddForm = props => {
+const LandingForm = ({ errors, touched, closeCallback }) => {
 	return (
-		<div className="add-form centered border border-success">
-			<div onClick={props.closeCallback}>
+		<Form className="add-form centered border border-success">
+			<div onClick={closeCallback}>
 				<CloseIcon size={25} styles="closeIco" />
 			</div>
-			<div className="form-group">
-				<label htmlFor="paperInputs1">Input</label>
-				<input type="text" placeholder="Nice input" id="paperInputs1" />
-			</div>
+
 			<div className="row">
-				<div className="col sm-4">
+				<div className="col sm-8">
 					<div className="form-group">
-						<label htmlFor="paperInputs2">Block Level</label>
-						<input className="input-block" type="text" id="paperInputs2" />
+						<label htmlFor="email">Email</label>
+						<Field className="input-block" name="email" id="email" placeholder="Email" />
+						<div>{touched.email && errors.email && <p>{errors.email}</p>}</div>
 					</div>
 				</div>
 				<div className="col sm-8">
 					<div className="form-group">
-						<label htmlFor="paperInputs3">Block Level</label>
-						<input className="input-block" type="text" id="paperInputs3" />
+						<label htmlFor="pass">Password</label>
+						<Field className="input-block" name="password" id="pass" placeholder="Password" />
+						<div>{touched.password && errors.password && <p>{errors.password}</p>}</div>
 					</div>
 				</div>
 			</div>
-			<div className="form-group">
-				<label htmlFor="paperInputs4">Disabled</label>
-				<input type="text" placeholder="Disabled" id="paperInputs4" disabled />
-			</div>
-			<div className="form-group">
-				<label>Large Input</label>
-				<textarea placeholder="Large input" />
-			</div>
-			<div className="form-group">
-				<label>No Resize</label>
-				<textarea className="no-resize" placeholder="No resize" />
-			</div>
-			<fieldset className="form-group">
-				<legend>Some Check Boxes</legend>
-				<label htmlFor="paperChecks1" className="paper-check">
-					<input type="checkbox" name="paperChecks" id="paperChecks1" value="option 1" />{' '}
-					<span>This is the first check</span>
-				</label>
-				<label htmlFor="paperChecks2" className="paper-check">
-					<input type="checkbox" name="paperChecks" id="paperChecks2" value="option 2" />{' '}
-					<span>This is the second check</span>
-				</label>
-			</fieldset>
-		</div>
+			<button>Login</button>
+		</Form>
 	);
 };
 
-export default AddForm;
+LandingForm.propTypes = {
+	errors: PropTypes.shape({
+		email: PropTypes.string,
+		password: PropTypes.string,
+	}),
+	touched: PropTypes.shape({
+		email: PropTypes.bool,
+		password: PropTypes.bool,
+	}),
+	closeCallback: PropTypes.func,
+};
+
+const FormikLogin = withFormik({
+	mapPropsToValues({ email, password }) {
+		return {
+			email: email || '',
+			password: password || '',
+		};
+	},
+	validationSchema: Yup.object().shape({
+		email: Yup.string()
+			.email('Email not valid')
+			.required('Email is required'),
+		password: Yup.string().required('Password is required'),
+	}),
+	handleSubmit(values, { props, resetForm, setSubmitting }) {
+		props.loginUser(values);
+		resetForm();
+		setSubmitting(false);
+	},
+})(LandingForm);
+
+const mapDispatchToProps = dispatch => ({
+	loginUser: userData => dispatch(loginUser(userData)),
+});
+
+export default connect(
+	null,
+	mapDispatchToProps
+)(FormikLogin);

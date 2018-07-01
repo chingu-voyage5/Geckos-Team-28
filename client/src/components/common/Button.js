@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { NavLink } from 'react-router-dom';
 
 const Button = props => {
 	const styles = ['button', props.customStyles];
@@ -13,9 +12,9 @@ const Button = props => {
 };
 
 Button.propTypes = {
-	to: PropTypes.string.isRequired,
 	customStyles: PropTypes.string,
 	buttonText: PropTypes.string.isRequired,
+	handleClick: PropTypes.func,
 };
 
 export default Button;

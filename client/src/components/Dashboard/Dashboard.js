@@ -50,7 +50,7 @@ export class Dashboard extends Component {
 						? this.props.routinesData.routines.map(routine => <Routine key={routine._id} routine={routine} />)
 						: null}
 					<div className="open-portal" popover-right="Add new routine">
-						<a href="#" className="paper-btn margin" onClick={this.onPortalOpen}>
+						<a className="paper-btn margin" onClick={this.onPortalOpen}>
 							+
 						</a>
 					</div>
