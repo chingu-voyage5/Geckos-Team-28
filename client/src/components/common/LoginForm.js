@@ -5,20 +5,34 @@ import { connect } from 'react-redux';
 import Yup from 'yup';
 
 import { loginUser } from '../../Redux/actions/authActions';
+import { CloseIcon } from '../../assets/CloseIcon';
 
-// these are props passed from withFormik
-const Login = ({ errors, touched }) => (
-	<Form>
-		<div>{touched.email && errors.email && <p>{errors.email}</p>}</div>
-		<Field type="email" name="email" placeholder="Email" />
+const LoginForm = ({ errors, touched, closeCallback }) => {
+	return (
+		<Form className="add-form centered border border-success">
+			<div onClick={closeCallback}>
+				<CloseIcon size={25} styles="closeIco" />
+			</div>
 
-		<div>{touched.password && errors.password && <p>{errors.password}</p>}</div>
-		<Field type="password" name="password" placeholder="Password" />
-		<button>Login</button>
-	</Form>
-);
+			<div className="row">
+				<div className="col sm-8">
+					<div className="form-group">
+						<label htmlFor="email">Email</label>
+						<Field className="input-block" name="email" id="email" placeholder="Email" />
+						<div>{touched.email && errors.email && <p>{errors.email}</p>}</div>
 
-Login.propTypes = {
+						<label htmlFor="pass">Password</label>
+						<Field className="input-block" name="password" id="pass" placeholder="Password" />
+						<div>{touched.password && errors.password && <p>{errors.password}</p>}</div>
+					</div>
+				</div>
+			</div>
+			<button>Login</button>
+		</Form>
+	);
+};
+
+LoginForm.propTypes = {
 	errors: PropTypes.shape({
 		email: PropTypes.string,
 		password: PropTypes.string,
@@ -27,9 +41,9 @@ Login.propTypes = {
 		email: PropTypes.bool,
 		password: PropTypes.bool,
 	}),
+	closeCallback: PropTypes.func,
 };
 
-// withFormik HOC
 const FormikLogin = withFormik({
 	mapPropsToValues({ email, password }) {
 		return {
@@ -48,7 +62,7 @@ const FormikLogin = withFormik({
 		resetForm();
 		setSubmitting(false);
 	},
-})(Login);
+})(LoginForm);
 
 const mapDispatchToProps = dispatch => ({
 	loginUser: userData => dispatch(loginUser(userData)),

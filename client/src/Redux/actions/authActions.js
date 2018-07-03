@@ -11,7 +11,8 @@ export const clearUser = () => ({
 export const registerUser = (userData, redirect) => dispatch =>
 	axios
 		.post('/api/users/register', userData)
-		.then(() => redirect.push('/login'))
+		// Add notification?
+		.then(() => redirect.push('/'))
 		.catch(err => {
 			dispatch({
 				type: types.GET_ERRORS,

@@ -3,6 +3,9 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import jwtDecode from 'jwt-decode';
 
+import './styles/paper.min.css';
+import './styles/App.css';
+
 import configureStore from './Redux/configureStore';
 import App from './components/App';
 import { setAuthToken } from './helpers';
@@ -12,7 +15,7 @@ const store = configureStore();
 
 const Root = () => (
 	<Provider store={store}>
-		<App />
+		<App className="App" />
 	</Provider>
 );
 
@@ -32,7 +35,7 @@ if (localStorage.getItem('jwtToken')) {
 		// Clear current profile
 		store.dispatch(clearUser());
 		// Redirect to login page
-		window.location.href = '/login';
+		window.location.href = '/';
 	}
 }
 

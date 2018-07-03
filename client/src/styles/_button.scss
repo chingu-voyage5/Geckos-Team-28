@@ -62,7 +62,7 @@
 
 	&--primary {
 		background: var(--accent-color);
-		color: var(--font-color-mid);
+		color: var(--primary-light);
 
 		&:hover,
 		&:visited {
@@ -87,4 +87,38 @@
 			background: color(var(--primary) tint(25%));
 		}
 	}
+}
+
+.open-portal {
+	opacity: 1;
+	display: inline-block;
+	position: absolute;
+	bottom: 1em;
+	right: -2rem;
+
+	& .paper-btn {
+		padding: 0.6em 1em;
+		background: #fff;
+		border-top-left-radius: 185px 160px;
+		border-top-right-radius: 200px 195px;
+		border-bottom-right-radius: 160px 195px;
+		border-bottom-left-radius: 185px 190px;
+		font-size: 1.5rem;
+	}
+}
+
+[popover-right]::after {
+	content: attr(popover-right);
+	left: 70%;
+	font-size: 1.5rem;
+	margin-left: 8px;
+	top: 50%;
+	transform: translateX(0%) translateY(-50%);
+}
+
+.closeIco {
+	position: absolute;
+	top: 1rem;
+	right: 1rem;
+	cursor: pointer;
 }

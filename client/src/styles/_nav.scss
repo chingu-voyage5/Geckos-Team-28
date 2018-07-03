@@ -1,0 +1,18 @@
+.nav {
+	height: 5rem;
+	// background: var(--font-color-mid);
+	display: flex;
+	align-items: center;
+
+	& ul.inline li.nav__item {
+		margin: 0 1.5rem;
+	}
+
+	& ul.inline {
+		margin: 0;
+	}
+
+	&.fixed {
+		position: sticky;
+	}
+}

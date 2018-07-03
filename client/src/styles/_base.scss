@@ -99,6 +99,8 @@ textarea {
 html {
 	/* 1rem = 10px; 10px/16px = 62.5% */
 	font-size: var(--font-size-base);
+	min-height: 100%;
+	min-width: 100%;
 
 	@include respond(big-desktop) {
 		// 1rem = 12px; 12/16 = 75%; width > 1800?;
@@ -115,8 +117,46 @@ html {
 }
 
 body {
+	background: var(--divider-color);
 	font-family: var(--font-primary);
 	font-weight: var(--font-weight-normal);
 	line-height: var(--line-height-base);
 	// color: TBD;
+	width: 100%;
+	height: 100%;
+	position: relative;
+
+	&.portal-open {
+		overflow: hidden !important;
+	}
+}
+
+// Papercss override
+ul li::before {
+	content: '';
+}
+
+form {
+	position: relative;
+}
+
+#root {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+}
+
+// #portal {
+// 	position: absolute;
+// 	top: 50%;
+// 	left: 50%;
+// 	transform: translate(-50%, -50%);
+// 	width: auto;
+// }
+
+.calendar,
+.clock {
+	height: 50%;
+	align-self: center;
 }
