@@ -16,3 +16,14 @@ export const fetchRoutines = userId => dispatch => {
 			console.log(err);
 		});
 };
+
+export const createRoutine = data => dispatch => {
+	if (!data) return null;
+	console.log(data);
+	return axios
+		.post('api/routines', data)
+		.then(res => console.log(res))
+		.catch(err => {
+			console.log(err);
+		});
+};
