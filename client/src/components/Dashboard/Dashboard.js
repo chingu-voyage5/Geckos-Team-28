@@ -39,7 +39,7 @@ export class Dashboard extends Component {
 			<main className="dashboard border border-4 border-primary">
 				{this.state.isPortalVisible && (
 					<Portal>
-						<AddForm closeCallback={this.onPortalClose} />
+						<AddForm routine={true} closeCallback={this.onPortalClose} />
 					</Portal>
 				)}
 				<header className="header">

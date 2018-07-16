@@ -1,56 +1,67 @@
 import React from 'react';
-
+import PropTypes from 'prop-types';
 import { CloseIcon } from '../../assets/CloseIcon';
 
 const AddForm = props => {
-	return (
+	return props.routine ? (
 		<div className="add-form centered border border-success">
 			<div onClick={props.closeCallback}>
 				<CloseIcon size={25} styles="closeIco" />
 			</div>
-			<div className="form-group">
-				<label htmlFor="paperInputs1">Input</label>
-				<input type="text" placeholder="Nice input" id="paperInputs1" />
+			<div className="row">
+				<div className="col sm-10">
+					<div className="form-group">
+						<label htmlFor="routineName">Block Name</label>
+						<input className="input-block" type="text" id="routineName" placeholder="Breakfast time" />
+					</div>
+				</div>
+				<div className="col sm-10">
+					<div className="form-group">
+						<label htmlFor="routineDescription">Description</label>
+						<input
+							className="input-block"
+							type="text"
+							id="routineDescription"
+							placeholder="Make yourself a breakfast and enjoy it"
+						/>
+					</div>
+				</div>
+			</div>
+			<button onClick={() => {}}>Create</button>
+		</div>
+	) : (
+		<div className="add-form centered border border-success">
+			<div onClick={props.closeCallback}>
+				<CloseIcon size={25} styles="closeIco" />
 			</div>
 			<div className="row">
-				<div className="col sm-4">
-					<div className="form-group">
-						<label htmlFor="paperInputs2">Block Level</label>
-						<input className="input-block" type="text" id="paperInputs2" />
-					</div>
-				</div>
 				<div className="col sm-8">
 					<div className="form-group">
-						<label htmlFor="paperInputs3">Block Level</label>
-						<input className="input-block" type="text" id="paperInputs3" />
+						<label htmlFor="activityName">Name</label>
+						<input className="input-block" id="activityName" type="text" placeholder="My new activity" />
+					</div>
+				</div>
+				<div className="col sm-4">
+					<div className="form-group">
+						<label htmlFor="activityStart">Start Time</label>
+						<input className="input-block input-time" type="time" id="activityStart" />
+					</div>
+				</div>
+				<div className="col sm-4">
+					<div className="form-group">
+						<label htmlFor="activityEnd">End Time</label>
+						<input className="input-block input-time" type="time" id="activityEnd" />
 					</div>
 				</div>
 			</div>
-			<div className="form-group">
-				<label htmlFor="paperInputs4">Disabled</label>
-				<input type="text" placeholder="Disabled" id="paperInputs4" disabled />
-			</div>
-			<div className="form-group">
-				<label>Large Input</label>
-				<textarea placeholder="Large input" />
-			</div>
-			<div className="form-group">
-				<label>No Resize</label>
-				<textarea className="no-resize" placeholder="No resize" />
-			</div>
-			<fieldset className="form-group">
-				<legend>Some Check Boxes</legend>
-				<label htmlFor="paperChecks1" className="paper-check">
-					<input type="checkbox" name="paperChecks" id="paperChecks1" value="option 1" />{' '}
-					<span>This is the first check</span>
-				</label>
-				<label htmlFor="paperChecks2" className="paper-check">
-					<input type="checkbox" name="paperChecks" id="paperChecks2" value="option 2" />{' '}
-					<span>This is the second check</span>
-				</label>
-			</fieldset>
+			<button>Create</button>
 		</div>
 	);
+};
+
+AddForm.propTypes = {
+	routine: PropTypes.bool,
+	closeCallback: PropTypes.func,
 };
 
 export default AddForm;
