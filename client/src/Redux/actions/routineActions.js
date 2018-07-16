@@ -34,3 +34,17 @@ export const createRoutine = data => dispatch => {
 			});
 		});
 };
+
+export const deleteRoutine = id => dispatch => {
+	return axios
+		.delete(`/api/routines/${id}`)
+		.then(res => console.log(res))
+		.catch(err => {
+			dispatch({
+				type: types.GET_ERRORS,
+				payload: err,
+			});
+		});
+};
+
+export const updateRoutine = (id, data) => dispatch => {};

@@ -19,3 +19,7 @@ export const createActivity = (data, routine_id) => dispatch => {
 			})
 		);
 };
+
+export const deleteActivity = id => dispatch => {};
+
+export const updateActivity = (id, data) => dispatch => {};

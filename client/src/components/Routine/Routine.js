@@ -7,6 +7,8 @@ import Portal from '../Portal/Portal';
 import AddForm from '../common/AddForm';
 
 class Routine extends React.Component {
+	editRoutineRef = React.createRef();
+	deleteRoutineRef = React.createRef();
 	state = {
 		isPortalVisible: false,
 	};
@@ -19,6 +21,15 @@ class Routine extends React.Component {
 	onPortalOpen = e => {
 		e.preventDefault();
 		this.setState({ isPortalVisible: true });
+	};
+
+	onMouseEnterHandler = () => {
+		this.editRoutineRef.current.classList.remove('hide');
+		this.deleteRoutineRef.current.classList.remove('hide');
+	};
+	onMouseLeaveHandler = () => {
+		this.editRoutineRef.current.classList.add('hide');
+		this.deleteRoutineRef.current.classList.add('hide');
 	};
 
 	render() {
@@ -44,8 +55,24 @@ class Routine extends React.Component {
 							  ))
 							: null}
 					</ul>
-					<div className="open-portal" popover-right="Add new activity">
-						<a className="paper-btn margin" onClick={this.onPortalOpen}>
+					<div className="open-portal" onMouseEnter={this.onMouseEnterHandler} onMouseLeave={this.onMouseLeaveHandler}>
+						<a
+							className="paper-btn hide"
+							ref={this.editRoutineRef}
+							onClick={this.onPortalOpen}
+							popover-right="Edit routine"
+						>
+							☑
+						</a>
+						<a
+							className="paper-btn hide"
+							ref={this.deleteRoutineRef}
+							onClick={this.onPortalOpen}
+							popover-right="Delete Routine"
+						>
+							☒
+						</a>
+						<a className="paper-btn" onClick={this.onPortalOpen} popover-right="Add new activity">
 							+
 						</a>
 					</div>
