@@ -2,14 +2,14 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import { createRoutine } from '../../Redux/actions/routineActions';
+import { createRoutine, updateRoutine } from '../../Redux/actions/routineActions';
 import { createActivity } from '../../Redux/actions/activityActions';
 import { CloseIcon } from '../../assets/CloseIcon';
 
 class AddForm extends Component {
 	state = {
-		blockName: '',
-		description: '',
+		blockName: this.props.blockName || '',
+		description: this.props.description || '',
 		name: '',
 		startTime: '',
 		endTime: '',
@@ -22,8 +22,17 @@ class AddForm extends Component {
 			blockName,
 			description,
 		};
-		this.props.createRoutine(data);
-		this.props.closeCallback(e);
+
+		if (this.props.edit) {
+			if (this.props.blockName === blockName && this.props.description === description) {
+				this.props.closeCallback(e);
+			}
+			this.props.updateRoutine(data, this.props.routineId);
+			this.props.closeCallback(e);
+		} else {
+			this.props.createRoutine(data);
+			this.props.closeCallback(e);
+		}
 	};
 
 	onActivitySubmit = e => {
@@ -63,6 +72,7 @@ class AddForm extends Component {
 								id="routineName"
 								placeholder="Breakfast time"
 								onChange={this.onChange}
+								value={this.state.blockName}
 							/>
 						</div>
 					</div>
@@ -76,11 +86,12 @@ class AddForm extends Component {
 								id="routineDescription"
 								placeholder="Make yourself a breakfast and enjoy it"
 								onChange={this.onChange}
+								value={this.state.description}
 							/>
 						</div>
 					</div>
 				</div>
-				<button type="submit">Create</button>
+				<button type="submit">{this.props.edit ? 'Update' : 'Create'}</button>
 			</form>
 		) : (
 			<form onSubmit={this.onActivitySubmit} className="add-form centered border border-success">
@@ -134,15 +145,20 @@ class AddForm extends Component {
 
 AddForm.propTypes = {
 	routine: PropTypes.bool,
+	edit: PropTypes.bool,
 	closeCallback: PropTypes.func,
 	createRoutine: PropTypes.func,
+	updateRoutine: PropTypes.func,
 	routineId: PropTypes.string,
 	createActivity: PropTypes.func,
+	blockName: PropTypes.string,
+	description: PropTypes.string,
 };
 
 const mapDispatchToProps = dispatch => ({
 	createRoutine: data => dispatch(createRoutine(data)),
 	createActivity: (data, id) => dispatch(createActivity(data, id)),
+	updateRoutine: (data, id) => dispatch(updateRoutine(data, id)),
 });
 
 export default connect(

@@ -21,10 +21,10 @@ export const createRoutine = data => dispatch => {
 	if (!data) return null;
 	return axios
 		.post('api/routines', data)
-		.then(() =>
+		.then(res =>
 			dispatch({
 				type: types.ADD_ROUTINE_SUCCESS,
-				payload: data,
+				payload: res.data,
 			})
 		)
 		.catch(err => {
@@ -38,7 +38,12 @@ export const createRoutine = data => dispatch => {
 export const deleteRoutine = id => dispatch => {
 	return axios
 		.delete(`/api/routines/${id}`)
-		.then(res => console.log(res))
+		.then(() =>
+			dispatch({
+				type: types.DELETE_ROUTINE_SUCCESS,
+				payload: id,
+			})
+		)
 		.catch(err => {
 			dispatch({
 				type: types.GET_ERRORS,
@@ -47,4 +52,19 @@ export const deleteRoutine = id => dispatch => {
 		});
 };
 
-export const updateRoutine = (id, data) => dispatch => {};
+export const updateRoutine = (data, id) => dispatch => {
+	return axios
+		.put(`api/routines/${id}`, data)
+		.then(res =>
+			dispatch({
+				type: types.UPDATE_ROUTINE_SUCCESS,
+				payload: res.data,
+			})
+		)
+		.catch(err => {
+			dispatch({
+				type: types.GET_ERRORS,
+				payload: err,
+			});
+		});
+};
