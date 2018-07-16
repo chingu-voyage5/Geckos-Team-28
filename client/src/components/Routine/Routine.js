@@ -28,7 +28,7 @@ class Routine extends React.Component {
 			<div className="routine">
 				{this.state.isPortalVisible && (
 					<Portal>
-						<AddForm closeCallback={this.onPortalClose} />
+						<AddForm closeCallback={this.onPortalClose} routineId={routine._id} />
 					</Portal>
 				)}
 				<div className="routine__info">

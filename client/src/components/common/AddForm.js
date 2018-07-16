@@ -3,12 +3,14 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { createRoutine } from '../../Redux/actions/routineActions';
+import { createActivity } from '../../Redux/actions/activityActions';
 import { CloseIcon } from '../../assets/CloseIcon';
 
 class AddForm extends Component {
 	state = {
 		blockName: '',
 		description: '',
+		name: '',
 		startTime: '',
 		endTime: '',
 	};
@@ -24,6 +26,21 @@ class AddForm extends Component {
 		this.props.closeCallback(e);
 	};
 
+	onActivitySubmit = e => {
+		e.preventDefault();
+
+		const { name, startTime, endTime } = this.state;
+		const { routineId } = this.props;
+
+		const data = {
+			name,
+			startTime,
+			endTime,
+		};
+		this.props.createActivity(data, routineId);
+		this.props.closeCallback(e);
+	};
+
 	onChange = e => {
 		const { name, value } = e.target;
 		this.setState({ [name]: value });
@@ -31,7 +48,7 @@ class AddForm extends Component {
 
 	render() {
 		return this.props.routine ? (
-			<form className="add-form centered border border-success">
+			<form onSubmit={this.onRoutineSubmit} className="add-form centered border border-success">
 				<div onClick={this.props.closeCallback}>
 					<CloseIcon size={25} styles="closeIco" />
 				</div>
@@ -63,12 +80,10 @@ class AddForm extends Component {
 						</div>
 					</div>
 				</div>
-				<button type="submit" onClick={this.onRoutineSubmit}>
-					Create
-				</button>
+				<button type="submit">Create</button>
 			</form>
 		) : (
-			<form className="add-form centered border border-success">
+			<form onSubmit={this.onActivitySubmit} className="add-form centered border border-success">
 				<div onClick={this.props.closeCallback}>
 					<CloseIcon size={25} styles="closeIco" />
 				</div>
@@ -76,23 +91,42 @@ class AddForm extends Component {
 					<div className="col sm-8">
 						<div className="form-group">
 							<label htmlFor="activityName">Name</label>
-							<input className="input-block" id="activityName" type="text" placeholder="My new activity" />
+							<input
+								name="name"
+								className="input-block"
+								id="activityName"
+								type="text"
+								placeholder="My new activity"
+								onChange={this.onChange}
+							/>
 						</div>
 					</div>
 					<div className="col sm-4">
 						<div className="form-group">
 							<label htmlFor="activityStart">Start Time</label>
-							<input className="input-block input-time" type="time" id="activityStart" />
+							<input
+								name="startTime"
+								className="input-block input-time"
+								type="time"
+								id="activityStart"
+								onChange={this.onChange}
+							/>
 						</div>
 					</div>
 					<div className="col sm-4">
 						<div className="form-group">
 							<label htmlFor="activityEnd">End Time</label>
-							<input className="input-block input-time" type="time" id="activityEnd" />
+							<input
+								name="endTime"
+								className="input-block input-time"
+								type="time"
+								id="activityEnd"
+								onChange={this.onChange}
+							/>
 						</div>
 					</div>
 				</div>
-				<button>Create</button>
+				<button type="submit">Create</button>
 			</form>
 		);
 	}
@@ -102,10 +136,13 @@ AddForm.propTypes = {
 	routine: PropTypes.bool,
 	closeCallback: PropTypes.func,
 	createRoutine: PropTypes.func,
+	routineId: PropTypes.string,
+	createActivity: PropTypes.func,
 };
 
 const mapDispatchToProps = dispatch => ({
 	createRoutine: data => dispatch(createRoutine(data)),
+	createActivity: (data, id) => dispatch(createActivity(data, id)),
 });
 
 export default connect(

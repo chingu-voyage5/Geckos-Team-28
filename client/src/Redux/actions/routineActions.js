@@ -19,11 +19,18 @@ export const fetchRoutines = userId => dispatch => {
 
 export const createRoutine = data => dispatch => {
 	if (!data) return null;
-	console.log(data);
 	return axios
 		.post('api/routines', data)
-		.then(res => console.log(res))
+		.then(() =>
+			dispatch({
+				type: types.ADD_ROUTINE_SUCCESS,
+				payload: data,
+			})
+		)
 		.catch(err => {
-			console.log(err);
+			dispatch({
+				type: types.GET_ERRORS,
+				payload: err,
+			});
 		});
 };
