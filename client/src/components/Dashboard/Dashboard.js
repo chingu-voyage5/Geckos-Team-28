@@ -39,7 +39,7 @@ export class Dashboard extends Component {
 			<main className="dashboard border border-4 border-primary">
 				{this.state.isPortalVisible && (
 					<Portal>
-						<AddForm closeCallback={this.onPortalClose} />
+						<AddForm routine={true} closeCallback={this.onPortalClose} />
 					</Portal>
 				)}
 				<header className="header">
@@ -49,7 +49,7 @@ export class Dashboard extends Component {
 					{this.props.routinesData.routines
 						? this.props.routinesData.routines.map(routine => <Routine key={routine._id} routine={routine} />)
 						: null}
-					<div className="open-portal" popover-right="Add new routine">
+					<div className="open-portal open-portal--dashboard" popover-right="Add new routine">
 						<a className="paper-btn margin" onClick={this.onPortalOpen}>
 							+
 						</a>

@@ -35,13 +35,11 @@ const routineSchema = new Schema({
 				ref: 'user',
 			},
 			startTime: {
-				type: Date,
+				type: String,
 				required: true, // start time is required but end time is optional
-				default: Date.now,
 			},
 			endTime: {
-				type: Date,
-				default: Date.now,
+				type: String,
 			},
 		},
 	],
