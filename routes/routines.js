@@ -126,6 +126,7 @@ router.post('/activity/:routine_id', passport.authenticate('jwt', { session: fal
 				name: req.body.name,
 				startTime: req.body.startTime,
 				endTime: req.body.endTime,
+				checked: req.body.checked || false,
 			};
 
 			// Add to activities array
@@ -154,6 +155,7 @@ router.put('/activity/:routine_id/:activity_id', passport.authenticate('jwt', { 
 		name: req.body.name,
 		startTime: req.body.startTime,
 		endTime: req.body.endTime,
+		checked: req.body.checked || false,
 	};
 
 	Routine.findById(req.params.routine_id)

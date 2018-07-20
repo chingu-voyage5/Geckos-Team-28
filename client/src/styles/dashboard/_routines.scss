@@ -88,8 +88,18 @@
 			align-items: center;
 		}
 
+		&__actions {
+			margin-right: 6rem;
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			width: 4rem;
+		}
+
 		& .form-group .paper-check {
 			display: flex;
+			align-items: center;
+			justify-content: space-between;
 
 			& input + span::before {
 				vertical-align: middle;

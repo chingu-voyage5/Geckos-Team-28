@@ -41,6 +41,9 @@ const routineSchema = new Schema({
 			endTime: {
 				type: String,
 			},
+			checked: {
+				type: Boolean,
+			},
 		},
 	],
 });
