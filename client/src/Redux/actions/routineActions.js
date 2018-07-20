@@ -6,14 +6,16 @@ export const fetchRoutines = userId => dispatch => {
 	return axios
 		.get('/api/routines/')
 		.then(res => {
-			console.log(res);
 			dispatch({
 				type: types.GET_ROUTINES_SUCCESS,
 				payload: res.data,
 			});
 		})
 		.catch(err => {
-			console.log(err);
+			dispatch({
+				type: types.GET_ERRORS,
+				payload: err,
+			});
 		});
 };
 
