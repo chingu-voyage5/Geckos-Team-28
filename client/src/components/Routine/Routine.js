@@ -7,6 +7,9 @@ import Activity from '../Activity/Activity';
 import Portal from '../Portal/Portal';
 import AddForm from '../common/AddForm';
 import { deleteRoutine } from '../../Redux/actions/routineActions';
+import { updateActivity, deleteActivity } from '../../Redux/actions/activityActions';
+import { DeleteIcon } from '../../assets/DeleteIcon';
+import { EditIcon } from '../../assets/EditIcon';
 
 class Routine extends React.Component {
 	editRoutineRef = React.createRef();
@@ -79,7 +82,14 @@ class Routine extends React.Component {
 					<ul className="activities__box">
 						{routine.activities
 							? routine.activities.map((activity, index) => (
-									<Activity key={activity._id} index={index} activity={activity} />
+									<Activity
+										key={activity._id}
+										index={index}
+										activity={activity}
+										parentId={routine._id}
+										updateActivity={this.props.updateActivity}
+										deleteActivity={this.props.deleteActivity}
+									/>
 							  ))
 							: null}
 					</ul>
@@ -90,7 +100,10 @@ class Routine extends React.Component {
 							onClick={this.onEditPortalOpen}
 							popover-right="Edit routine"
 						>
-							☑
+							<EditIcon size="1.3rem" />
+						</a>
+						<a className="paper-btn" onClick={this.onPortalOpen} popover-right="Add new activity">
+							+
 						</a>
 						<a
 							className="paper-btn hide"
@@ -98,10 +111,7 @@ class Routine extends React.Component {
 							onClick={this.onRoutineDelete}
 							popover-right="Delete Routine"
 						>
-							☒
-						</a>
-						<a className="paper-btn" onClick={this.onPortalOpen} popover-right="Add new activity">
-							+
+							<DeleteIcon size="1.3rem" />
 						</a>
 					</div>
 				</div>
@@ -115,11 +125,15 @@ Routine.propTypes = {
 		activities: PropTypes.array,
 		_id: PropTypes.string,
 	}),
-	deleteRoutine: PropTypes.func,
+	deleteRoutine: PropTypes.func.isRequired,
+	updateActivity: PropTypes.func.isRequired,
+	deleteActivity: PropTypes.func.isRequired,
 };
 
 const mapDispatchToProps = dispatch => ({
 	deleteRoutine: id => dispatch(deleteRoutine(id)),
+	updateActivity: (routineId, activityId, data) => dispatch(updateActivity(routineId, activityId, data)),
+	deleteActivity: (routineId, activityId) => dispatch(deleteActivity(routineId, activityId)),
 });
 
 export default connect(

@@ -10,9 +10,10 @@ class AddForm extends Component {
 	state = {
 		blockName: this.props.blockName || '',
 		description: this.props.description || '',
-		name: '',
-		startTime: '',
-		endTime: '',
+		name: this.props.name || '',
+		startTime: this.props.startTime || '',
+		endTime: this.props.endTime || '',
+		checked: this.props.checked || false,
 	};
 
 	onRoutineSubmit = e => {
@@ -38,16 +39,23 @@ class AddForm extends Component {
 	onActivitySubmit = e => {
 		e.preventDefault();
 
-		const { name, startTime, endTime } = this.state;
-		const { routineId } = this.props;
+		const { name, startTime, endTime, checked } = this.state;
+		const { routineId, activityId } = this.props;
 
 		const data = {
 			name,
 			startTime,
 			endTime,
+			checked,
 		};
-		this.props.createActivity(data, routineId);
-		this.props.closeCallback(e);
+
+		if (this.props.edit) {
+			this.props.updateActivity(routineId, activityId, data);
+			this.props.closeCallback(e);
+		} else {
+			this.props.createActivity(data, routineId);
+			this.props.closeCallback(e);
+		}
 	};
 
 	onChange = e => {
@@ -79,10 +87,11 @@ class AddForm extends Component {
 					<div className="col sm-10">
 						<div className="form-group">
 							<label htmlFor="routineDescription">Description</label>
-							<input
+							<textarea
 								className="input-block"
 								name="description"
 								type="text"
+								rows="5"
 								id="routineDescription"
 								placeholder="Make yourself a breakfast and enjoy it"
 								onChange={this.onChange}
@@ -109,6 +118,7 @@ class AddForm extends Component {
 								type="text"
 								placeholder="My new activity"
 								onChange={this.onChange}
+								value={this.state.name}
 							/>
 						</div>
 					</div>
@@ -121,6 +131,7 @@ class AddForm extends Component {
 								type="time"
 								id="activityStart"
 								onChange={this.onChange}
+								value={this.state.startTime}
 							/>
 						</div>
 					</div>
@@ -133,11 +144,12 @@ class AddForm extends Component {
 								type="time"
 								id="activityEnd"
 								onChange={this.onChange}
+								value={this.state.endTime}
 							/>
 						</div>
 					</div>
 				</div>
-				<button type="submit">Create</button>
+				<button type="submit">{this.props.edit ? 'Update' : 'Create'}</button>
 			</form>
 		);
 	}
@@ -151,8 +163,14 @@ AddForm.propTypes = {
 	updateRoutine: PropTypes.func,
 	routineId: PropTypes.string,
 	createActivity: PropTypes.func,
+	updateActivity: PropTypes.func,
 	blockName: PropTypes.string,
 	description: PropTypes.string,
+	name: PropTypes.string,
+	startTime: PropTypes.string,
+	endTime: PropTypes.string,
+	checked: PropTypes.bool,
+	activityId: PropTypes.string,
 };
 
 const mapDispatchToProps = dispatch => ({
