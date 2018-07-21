@@ -1,11 +1,22 @@
 {
-	"name": "G28",
+	"name": "g28",
 	"version": "1.0.0",
 	"description": "",
 	"main": "server.js",
 	"scripts": {
-		"test": "echo \"Error: no test specified\" && exit 1",
-		"server": "nodemon server.js"
+		"test": "mocha test/**/*.test.js --reporter spec --exit",
+		"test:watch": "mocha test/**/*.test.js --reporter spec",
+		"server": "nodemon server.js",
+		"client": "npm run start --prefix client",
+		"dev": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\"",
+		"precommit": "npm run test && lint-staged",
+		"heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build  --prefix client"
+	},
+	"lint-staged": {
+		"*.{js,json,css,md}": [
+			"prettier --config .prettierrc.json --write",
+			"git add"
+		]
 	},
 	"keywords": [],
 	"author": "",
@@ -15,13 +26,29 @@
 		"body-parser": "^1.18.3",
 		"concurrently": "^3.5.1",
 		"express": "^4.16.3",
+		"gravatar": "^1.6.0",
 		"jsonwebtoken": "^8.2.1",
+		"md5": "^2.2.1",
 		"mongoose": "^5.1.2",
+		"morgan": "^1.9.0",
 		"passport": "^0.4.0",
 		"passport-jwt": "^4.0.0",
+		"prettier": "^1.12.1",
+		"react-calendar": "^2.16.1",
+		"react-clock": "^2.3.0",
 		"validator": "^10.2.0"
 	},
 	"devDependencies": {
-		"nodemon": "^1.17.5"
+		"babel-eslint": "^8.2.3",
+		"chai": "^4.1.2",
+		"chai-http": "^4.0.0",
+		"eslint": "^4.19.1",
+		"eslint-plugin-react": "^7.8.2",
+		"husky": "^0.14.3",
+		"lint-staged": "^7.1.2",
+		"mocha": "^5.2.0",
+		"nodemon": "^1.17.5",
+		"superagent": "^3.8.3",
+		"supertest": "^3.1.0"
 	}
 }

@@ -1,0 +1,30 @@
+.add-form {
+	position: fixed;
+	width: 500px;
+	// height: 500px;
+	background: lighten($accent, 20%);
+	padding: 1.5rem;
+	font-size: 1.5rem;
+
+	display: flex;
+	flex-direction: column;
+
+	& .row {
+		flex-direction: column;
+		width: 100%;
+
+		& > * {
+			margin: 0 auto;
+			width: 60%;
+		}
+	}
+
+	& input,
+	& textarea {
+		font-size: 1.5rem;
+	}
+}
+
+.input-time {
+	text-align: center;
+}

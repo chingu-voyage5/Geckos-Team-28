@@ -1,0 +1,141 @@
+// -----------------------------------------------------------------------------
+// This file contains all styles related to the button component.
+// -----------------------------------------------------------------------------
+.button {
+	&,
+	&:link,
+	&:visited {
+		text-decoration: none;
+		text-transform: uppercase;
+		padding: 1.5rem 4rem;
+		display: inline-block;
+		border-radius: 100px;
+		transition: all 0.2s;
+		position: relative;
+		font-size: 1.5rem;
+		min-width: 20rem;
+
+		// Changes for the button element
+		border: none;
+		cursor: pointer;
+	}
+
+	&:hover {
+		transform: translateY(-3px);
+		box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.2);
+	}
+
+	&:hover::after {
+		transform: scaleX(1.4) scaleY(1.6);
+		opacity: 0;
+	}
+
+	&:active,
+	&:focus {
+		transform: translateY(-1px);
+		box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.2);
+		outline: none;
+	}
+
+	&::after {
+		content: '';
+		display: inline-block;
+		transition: all 0.2s;
+		height: 100%;
+		width: 100%;
+		border-radius: 10rem;
+		position: absolute;
+		z-index: -1;
+		left: 0;
+		top: 0;
+	}
+
+	&--white {
+		background: var(--font-color-light);
+		color: var(--font-color-mids);
+	}
+
+	&--white::after {
+		background: var(--primary-light);
+		color: var(--font-color-mid);
+	}
+
+	&--primary {
+		background: var(--accent-color);
+		color: var(--primary-light);
+
+		&:hover,
+		&:visited {
+			color: var(--font-color-light);
+		}
+	}
+
+	&--primary::after {
+		background: var(--accent-color);
+		color: var(--font-color-mids);
+	}
+
+	&--animated {
+		animation: moveFromBottom 0.5s 0.75s ease-out;
+		// This will use animations 0% before animations start
+		// Good for elements we want to be hidden before animation
+		animation-fill-mode: backwards;
+	}
+
+	&--text {
+		&:hover {
+			background: color(var(--primary) tint(25%));
+		}
+	}
+}
+
+.open-portal {
+	opacity: 1;
+	position: absolute;
+	// bottom: 1rem;
+
+	right: 1rem;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+
+	&--dashboard {
+		display: block;
+		bottom: 0;
+		right: -2rem;
+		height: auto;
+	}
+
+	& .hide {
+		display: none;
+	}
+
+	& .paper-btn {
+		padding: 0.6em 1em;
+		background: #fff;
+		border-top-left-radius: 185px 160px;
+		border-top-right-radius: 200px 195px;
+		border-bottom-right-radius: 160px 195px;
+		border-bottom-left-radius: 185px 190px;
+		font-size: 1.4rem;
+		margin: 0;
+	}
+}
+
+[popover-right]::after {
+	content: attr(popover-right);
+	left: 70%;
+	font-size: 1.5rem;
+	margin-left: 8px;
+	top: 50%;
+	transform: translateX(0%) translateY(-50%);
+	z-index: 999;
+}
+
+.closeIco {
+	position: absolute;
+	top: 1rem;
+	right: 1rem;
+	cursor: pointer;
+}
