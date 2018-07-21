@@ -10,8 +10,8 @@ These instructions will get you a copy of the project up and running on your loc
 
 What things you need to install the software and how to install them
 
-- node && (npm || yarn)
-- internet connections
+- `ode && (npm || yarn)`
+- `internet connection`
 
 ### Installing
 
@@ -51,8 +51,8 @@ We use [SemVer](http://semver.org/) for versioning. For the versions available, 
 ## Authors
 
 - **Darko Tasevski** - _Initial work_ - [Puritanic](https://github.com/Puritanic)
-- **wiched** - [wiched](https://github.com/wiched)
-- **Fouad** - [fmtabbara](https://github.com/fmtabbara)
+- **wiched** - _Initial work_ -  [wiched](https://github.com/wiched)
+- **Fouad** - _Initial work_ -  [fmtabbara](https://github.com/fmtabbara)
 
 See also the list of [contributors](#) who participated in this project.
 
