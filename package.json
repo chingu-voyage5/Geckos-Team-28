@@ -35,7 +35,6 @@
 		"prettier": "^1.12.1",
 		"react-calendar": "^2.16.1",
 		"react-clock": "^2.3.0",
-		"react-live-clock": "^2.0.3",
 		"validator": "^10.2.0"
 	},
 	"devDependencies": {
