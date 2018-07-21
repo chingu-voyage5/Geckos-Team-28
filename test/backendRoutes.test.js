@@ -8,7 +8,6 @@ chai.use(chaihttp);
 
 describe('API /api/users/login', () => {
 	it('Login route should expect email and password', done => {
-		console.log(process.env.NODE_ENV);
 		chai
 			.request(app)
 			.post('/api/users/login')
