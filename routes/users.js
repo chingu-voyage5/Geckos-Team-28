@@ -1,9 +1,12 @@
 const express = require('express');
 const gravatar = require('gravatar');
 const User = require('../models/userSchema');
+const Routine = require('../models/routineSchema');
 const config = require('../config/main');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
+
+const seedFile = require('../seed');
 
 /*********  Validation handlers  **********/
 const validateLogin = require('../validation/validateLogin');
@@ -60,7 +63,16 @@ router.post('/register', (req, res) => {
 					newUser.password = hash;
 					newUser
 						.save()
-						.then(savedUser => res.json(savedUser))
+						.then(savedUser => {
+							seedFile.forEach(seed => {
+								seed.user = savedUser._id;
+								const routine = new Routine(seed);
+								routine.save(error => {
+									if (error) console.warn('Failed to save default data to DB');
+								});
+							});
+							res.json(savedUser);
+						})
 						.catch(err => res.json({ message: 'bcrypt error', devMsg: err }));
 				});
 			});
@@ -93,6 +105,8 @@ router.post('/login', (req, res) => {
 				return res.status(404).json({ message: 'User not found', devMsg: errors });
 			}
 
+			console.log(user);
+
 			// Check password
 			bcrypt.compare(password, user.password).then(isMatch => {
 				if (!isMatch) {
@@ -102,7 +116,7 @@ router.post('/login', (req, res) => {
 				// Pass good, create JWT payload
 				const payload = {
 					id: user.id,
-					name: user.name,
+					name: user.username,
 					avatar: user.avatar,
 				};
 

@@ -11,6 +11,7 @@ class Activity extends Component {
 		parentId: PropTypes.string.isRequired,
 		activity: PropTypes.shape({
 			_id: PropTypes.string.isRequired,
+			checked: PropTypes.bool,
 		}),
 		deleteActivity: PropTypes.func.isRequired,
 		index: PropTypes.number.isRequired,
@@ -19,6 +20,7 @@ class Activity extends Component {
 
 	state = {
 		isPortalVisible: false,
+		checked: this.props.activity.checked || false,
 	};
 
 	onPortalClose = e => {
@@ -46,8 +48,17 @@ class Activity extends Component {
 	};
 
 	onChange = e => {
-		const { name, value } = e.target;
-		this.setState({ [name]: value });
+		const { activity, updateActivity, parentId } = this.props;
+		this.setState({ [e.target.name]: !this.state.checked }, () => {
+			const data = {
+				name: activity.name,
+				startTime: activity.startTime,
+				endTime: activity.endTime,
+				checked: this.state.checked,
+			};
+
+			return updateActivity(parentId, activity._id, data);
+		});
 	};
 
 	render() {
@@ -77,8 +88,8 @@ class Activity extends Component {
 								name="checked"
 								id={`paperChecks${index}`}
 								onChange={this.onChange}
-								value="option 1"
-								checked={activity.checked}
+								value={this.state.checked}
+								checked={this.state.checked}
 							/>{' '}
 							<span>{`${activity.startTime} - ${activity.endTime}`}</span>
 							<span>{activity.name}</span>
