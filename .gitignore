@@ -28,7 +28,6 @@ yarn-error.log*
 # dotenv environment variables file(s)
 .env
 .env.*
-config/main.js
 
 #Build generated
 dist/
