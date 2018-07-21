@@ -54,6 +54,17 @@ class Routine extends React.Component {
 	render() {
 		const { routine } = this.props;
 
+		const sort = arr =>
+			arr.concat().sort((a, b) => {
+				if (a.startTime < b.startTime) {
+					return -1;
+				}
+				if (a.startTime > b.startTime) {
+					return 1;
+				}
+				return 0;
+			});
+
 		return (
 			<div className="routine">
 				{this.state.isPortalVisible && (
@@ -81,7 +92,7 @@ class Routine extends React.Component {
 				<div className="activities border border-6 border-primary shadow shadow-hover background-secondary">
 					<ul className="activities__box">
 						{routine.activities
-							? routine.activities.map((activity, index) => (
+							? sort(routine.activities).map((activity, index) => (
 									<Activity
 										key={activity._id}
 										index={index}

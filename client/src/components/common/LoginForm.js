@@ -22,7 +22,7 @@ const LoginForm = ({ errors, touched, closeCallback }) => {
 						<div>{touched.email && errors.email && <p>{errors.email}</p>}</div>
 
 						<label htmlFor="pass">Password</label>
-						<Field className="input-block" name="password" id="pass" placeholder="Password" />
+						<Field className="input-block" type="password" name="password" id="pass" placeholder="Password" />
 						<div>{touched.password && errors.password && <p>{errors.password}</p>}</div>
 					</div>
 				</div>

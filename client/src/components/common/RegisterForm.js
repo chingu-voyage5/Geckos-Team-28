@@ -28,11 +28,17 @@ const RegisterForm = ({ errors, touched, closeCallback }) => {
 				<div className="col sm-8">
 					<div className="form-group">
 						<label htmlFor="password">Password</label>
-						<Field className="input-block" name="password" id="password" placeholder="Password" />
+						<Field className="input-block" type="password" name="password" id="password" placeholder="Password" />
 						<div>{touched.password && errors.password && <p>{errors.password}</p>}</div>
 
 						<label htmlFor="password2">Confirm Password</label>
-						<Field className="input-block" id="password2" name="password2" placeholder="Confirm password" />
+						<Field
+							className="input-block"
+							type="password"
+							id="password2"
+							name="password2"
+							placeholder="Confirm password"
+						/>
 						<div>{touched.password2 && errors.password2 && <p>{errors.password2}</p>}</div>
 					</div>
 				</div>

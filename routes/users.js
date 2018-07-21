@@ -105,6 +105,8 @@ router.post('/login', (req, res) => {
 				return res.status(404).json({ message: 'User not found', devMsg: errors });
 			}
 
+			console.log(user);
+
 			// Check password
 			bcrypt.compare(password, user.password).then(isMatch => {
 				if (!isMatch) {
@@ -114,7 +116,7 @@ router.post('/login', (req, res) => {
 				// Pass good, create JWT payload
 				const payload = {
 					id: user.id,
-					name: user.name,
+					name: user.username,
 					avatar: user.avatar,
 				};
 
